@@ -1,0 +1,18 @@
+package de.thwildau.asa;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.widget.TextView;
+
+public class AsaActivity extends Activity {
+	
+	TextView asaHeaderTextView;
+	
+	 @Override
+	    protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        setContentView(R.layout.asa_layout);
+	        
+	 }
+
+}

@@ -1,0 +1,16 @@
+package de.thwildau.asa;
+
+import android.content.Context;
+import android.os.Vibrator;
+
+public class Util {
+	
+	public static void vibrate(Context c){
+		// Get instance of Vibrator from current Context
+		Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+		 
+		// Vibrate for 300 milliseconds
+		v.vibrate(300);
+	}
+
+}

@@ -1,0 +1,12 @@
+package de.thwildau.asa;
+
+import android.app.Activity;
+import android.os.Vibrator;
+
+public class Util extends Activity {
+	
+	public static void vibrate(Vibrator v){
+		v.vibrate(300);
+	}
+
+}
