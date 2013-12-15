@@ -91,8 +91,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" >
 
-                <!-- PLACE MAP HERE -->
-
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
         </LinearLayout>
 
@@ -109,7 +112,6 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="right|center_vertical"
                 android:src="@drawable/map_dummy" />
-
         </LinearLayout>
     </LinearLayout>
 
