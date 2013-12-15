@@ -40,6 +40,8 @@ public class AsaActivity extends Activity {
 	            if (googleMap == null) {
 	                Toast.makeText(getApplicationContext(), "Sorry! unable to create maps", Toast.LENGTH_SHORT).show();
 	            }
+	            googleMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+	            googleMap.setMyLocationEnabled(true);
 	        }
 	    }
 	    
