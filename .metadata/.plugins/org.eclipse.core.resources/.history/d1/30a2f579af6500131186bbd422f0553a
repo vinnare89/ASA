@@ -1,0 +1,5 @@
+package de.thwildau.asa;
+
+public class ServiceDialog extends Activity{
+
+}

@@ -46,6 +46,7 @@
         </activity>
         <activity android:name=".MenuActivity"></activity>
         <activity android:name=".AsaActivity"></activity>
+        <activity android:name=".ServiceListActivity"></activity>
         
         <!-- Goolge API Key -->
     	<meta-data 
