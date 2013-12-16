@@ -1,0 +1,31 @@
+package de.thwildau.asa.rest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class PoiManager {
+	
+	private String baseUrl = "http://md12zyzc.ww009.siemens.net/cqweb/oslc/repo/SSZ_SUPMAN_DEV/db/SMP";
+	
+	public PoiManager() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public List<POI> getAllRequests() {
+		ArrayList<POI> list = new ArrayList<POI>();
+		OSLCDataSet dataset = new OSLCDataSet(baseUrl + "/query/33554633", "user", "user", true);
+		
+		for (String path : dataset.getAllPaths()) {
+			System.out.println(path);
+		}
+		
+		for (OSLCEntry entry : dataset) {
+			POI poi = new POI(entry);
+			list.add(poi);
+		}
+		System.out.println(list); 
+		return list;
+ 
+	}
+
+}

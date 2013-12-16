@@ -1,0 +1,36 @@
+package de.thwildau.asa.rest;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import android.util.Log;
+
+public class PoiManager {
+	
+	private String baseUrl = "http://192.168.2.112:8080/ASA/POI";
+	
+	public PoiManager() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public List<POI> getAllRequests() {
+		ArrayList<POI> list = new ArrayList<POI>();
+		OSLCDataSet dataset = new OSLCDataSet(baseUrl, "user", "user", true);
+		
+		dataset.getAllPaths()
+		
+		for (String path : dataset.getAllPaths()) {
+			Log.e("allPath", "allPath: " + path );
+//			System.out.println(path);
+		}
+		
+		for (OSLCEntry entry : dataset) {
+			POI poi = new POI(entry);
+			list.add(poi);
+		}
+		System.out.println(list); 
+		return list;
+ 
+	}
+
+}

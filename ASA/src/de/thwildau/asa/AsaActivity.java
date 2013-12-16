@@ -1,6 +1,7 @@
 package de.thwildau.asa;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.w3c.dom.Document;
 
@@ -25,6 +26,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import de.thwildau.asa.GMapV2Direction;
+import de.thwildau.asa.rest.POI;
+import de.thwildau.asa.rest.PoiManager;
+
 import com.google.android.gms.location.LocationClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
@@ -76,11 +80,14 @@ public class AsaActivity extends Activity {
 					"fonts/MOIRE-BOLD.TTF");
 	        asaHeaderTextView.setTypeface(header_typeface);
 	        
+	        System.setProperty("org.xml.sax.driver","org.xmlpull.v1.sax2.Driver");
+	        
 	        testButton.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
-					showDialog();
+//					showDialog();
+					getAllPoi();
 				}
 			});
 	        
@@ -149,13 +156,13 @@ public class AsaActivity extends Activity {
 	            
 	            //Jetzt folgt ein Versuch die eigene Position zuverlässig aus dem Gerät zu bekommen, da google.Map.getMyLocation  nur null zurück gibt
 	            
-	            mLocationClient.connect();
-	            mLocationRequest = LocationRequest.create();
-	            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);    // Use high accuracy
-//	            mLocationRequest.setInterval(UPDATE_INTERVAL);  // Setting the update interval to  5mins
-//	            mLocationRequest.setFastestInterval(FASTEST_INTERVAL);  // Set the fastest update interval to 1 min
-	            LocationListener locationListener = new MyLocationListener();
-	            mLocationClient.requestLocationUpdates(mLocationRequest,locationListener);
+//	            mLocationClient.connect();
+//	            mLocationRequest = LocationRequest.create();
+//	            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);    // Use high accuracy
+////	            mLocationRequest.setInterval(UPDATE_INTERVAL);  // Setting the update interval to  5mins
+////	            mLocationRequest.setFastestInterval(FASTEST_INTERVAL);  // Set the fastest update interval to 1 min
+//	            LocationListener locationListener = new MyLocationListener();
+//	            mLocationClient.requestLocationUpdates(mLocationRequest,locationListener);
 	            
 //	            if(mLocationClient!=null)
 //	            {
@@ -236,5 +243,11 @@ public class AsaActivity extends Activity {
 
 	       }
 
+	   }
+	   
+	   private void getAllPoi(){
+		   PoiManager manager = new PoiManager();
+		   List<POI> list = manager.getAllRequests();
+		   Log.e("POIIIIIIIIII","laenge: " + list.size());
 	   }
 }

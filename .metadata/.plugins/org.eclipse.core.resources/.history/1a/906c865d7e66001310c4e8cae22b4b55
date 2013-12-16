@@ -1,0 +1,54 @@
+package de.thwildau.asa.rest;
+
+public class POI {
+	
+	private String strasse;
+	
+	private String mtsk_id;
+	
+	private String entfernung;
+	
+	private String breitengrad;
+	
+	private String laengengrad;
+	
+	private String name;
+	
+	private String ort;
+	
+	private String plz;
+	
+	private String datum;
+	
+	private String marke;
+	
+	private String hausNr;
+	
+	private String e5;
+	
+	
+	public POI(OSLCEntry entry){
+		this(entry, "content#SMRequest#");
+	}
+	
+	public SupportRequest(OSLCEntry entry, String baseUrl) {
+		setLink((String)entry.getProperty("id"));
+		setId((String)entry.getProperty(baseUrl + "dc:title"));
+		setHeadline((String)entry.getProperty(baseUrl + "Headline"));
+		setToolVersion((String)entry.getProperty(baseUrl + "ToolVersion"));
+		setSubmitDate((String)entry.getProperty(baseUrl + "SubmitDate"));
+		setSubmitter((String)entry.getProperty(baseUrl + "Submitter"));
+		setRequestType((String)entry.getProperty(baseUrl + "RequestType"));
+		setCustomerName((String)entry.getProperty(baseUrl + "CustomerName"));
+		setCustomerDepartment((String)entry.getProperty(baseUrl + "CustomerDepartment"));
+		setCustomerMail((String)entry.getProperty(baseUrl + "CustomerMail"));
+		setCustomer((String)entry.getProperty(baseUrl + "Customer"));
+		setOwner((String)entry.getProperty(baseUrl + "CurrentOwner"));
+		setDescription((String)entry.getProperty(baseUrl + "ProblemDescription"));
+		setToolName((String)entry.getProperty(baseUrl + "Tool#Name"));
+		
+		System.out.println(getDescription());
+		
+	}
+
+}
