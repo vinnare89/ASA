@@ -245,9 +245,8 @@ public class AsaActivity extends Activity {
 
 	   }
 	   
-	   private void getAllPoi(){
+	   private List<POI> getAllPoi(){
 		   PoiManager manager = new PoiManager();
-		   List<POI> list = manager.getAllRequests();
-		   Log.e("POIIIIIIIIII","laenge: " + list.size());
+		   return manager.getAllRequests();
 	   }
 }

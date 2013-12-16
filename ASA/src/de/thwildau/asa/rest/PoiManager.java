@@ -7,13 +7,9 @@ import android.util.Log;
 
 public class PoiManager {
 	
-	private String baseUrl = "http://jphil.de:8080/ASA/POI?lat=52.5401&long=12.9776&dist=15&sprit=e5";
+	private static String baseUrl = "http://jphil.de:8080/ASA/POI?lat=52.5401&long=12.9776&dist=25&sprit=e5";
 	
-	public PoiManager() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public List<POI> getAllRequests() {
+	public static List<POI> getAllRequests() {
 		ArrayList<POI> list = new ArrayList<POI>();
 		OSLCDataSet dataset = new OSLCDataSet(baseUrl, "user", "user", true);
 		
@@ -27,8 +23,7 @@ public class PoiManager {
 			list.add(poi);
 		}
 		System.out.println(list); 
-		return list;
- 
+		return list; 
 	}
 
 }
