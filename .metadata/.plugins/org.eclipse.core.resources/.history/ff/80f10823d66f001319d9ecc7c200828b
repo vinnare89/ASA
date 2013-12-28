@@ -314,8 +314,7 @@ public class AsaActivity extends Activity {
 			asaStartTime -= 1000;
 
 			asaTimeTextView.setText(timeFormat.format(new Date(asaStartTime)));
-			double progress = (asaStartTime/21600000.0)*100;
-			asaTimeProgressBar.setProgress((int)progress);
+			asaTimeProgressBar.setProgress(asaStartTime/21600000);
 
 			// if (seconds < 10) {
 			// asaTimeTextView.setText("" + minutes + ":0" + seconds);

@@ -84,9 +84,8 @@ public class AsaActivity extends Activity {
 			* FASTEST_INTERVAL_IN_SECONDS;
 
 	private Handler mHandler = new Handler();
-	long mStartTime = 0L;
-	long asaStartTime = 21600000;
-	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	long mStartTime = 25200000;
+	SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss:SSS");
 
 	TextView asaHeaderTextView;
 	TextView asaTimeTextView;
@@ -141,7 +140,7 @@ public class AsaActivity extends Activity {
 		asaHeaderTextView.setTypeface(header_typeface);
 
 		System.setProperty("org.xml.sax.driver", "org.xmlpull.v1.sax2.Driver");
-		asaTimeProgressBar.setProgress(100);
+
 		asaTimeToggleButton
 				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 					public void onCheckedChanged(CompoundButton buttonView,
@@ -292,7 +291,7 @@ public class AsaActivity extends Activity {
 
 	OnClickListener mStartListener = new OnClickListener() {
 		public void onClick(View v) {
-			if (mStartTime == 0L) {
+			if (mStartTime == 10000) {
 				mStartTime = System.currentTimeMillis();
 				mHandler.removeCallbacks(mUpdateTimeTask);
 				mHandler.postDelayed(mUpdateTimeTask, 100);
@@ -303,19 +302,15 @@ public class AsaActivity extends Activity {
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
 			final long start = mStartTime;
-			long millis = SystemClock.uptimeMillis() - start;
+			long millis = SystemClock.uptimeMillis() + start;
 //			int seconds = (int) (millis / 1000) % 60;
 //			int minutes = (int) ((millis / (1000 * 60)) % 60);
 //			int hours = (int) ((millis / (1000 * 60 * 60)) % 24);
 			// int seconds = (int) (millis / 1000);
 			// int minutes = seconds / 60;
 			// seconds = seconds % 60;
-			
-			asaStartTime -= 1000;
 
-			asaTimeTextView.setText(timeFormat.format(new Date(asaStartTime)));
-			double progress = (asaStartTime/21600000.0)*100;
-			asaTimeProgressBar.setProgress((int)progress);
+			asaTimeTextView.setText(timeFormat.format(new Date(millis)));
 
 			// if (seconds < 10) {
 			// asaTimeTextView.setText("" + minutes + ":0" + seconds);
@@ -323,7 +318,7 @@ public class AsaActivity extends Activity {
 			// asaTimeTextView.setText("" + minutes + ":" + seconds);
 			// }
 
-			mHandler.postAtTime(this, start	+ millis + 1000);
+			mHandler.postAtTime(this, start	+ millis);
 		}
 	};
 

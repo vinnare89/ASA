@@ -84,9 +84,8 @@ public class AsaActivity extends Activity {
 			* FASTEST_INTERVAL_IN_SECONDS;
 
 	private Handler mHandler = new Handler();
-	long mStartTime = 0L;
-	long asaStartTime = 21600000;
-	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	long mStartTime = 25200000;
+	SimpleDateFormat timeFormat = new SimpleDateFormat("mm:ss:SSS");
 
 	TextView asaHeaderTextView;
 	TextView asaTimeTextView;
@@ -141,7 +140,7 @@ public class AsaActivity extends Activity {
 		asaHeaderTextView.setTypeface(header_typeface);
 
 		System.setProperty("org.xml.sax.driver", "org.xmlpull.v1.sax2.Driver");
-		asaTimeProgressBar.setProgress(100);
+
 		asaTimeToggleButton
 				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 					public void onCheckedChanged(CompoundButton buttonView,
@@ -178,62 +177,56 @@ public class AsaActivity extends Activity {
 				startActivity(intent);
 			}
 		});
+		
+		//Position + Routenberechnung
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        // Restore apps state (if exists) after rotation.
+        if (savedInstanceState != null) {
+            mUseBoth = savedInstanceState.getBoolean(KEY_BOTH);
+        } else {
+            mUseBoth = false;
+        }
+        mUseBoth = true;
+        mGeocoderAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD && Geocoder.isPresent();
 
-		// Position + Routenberechnung
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-				.permitAll().build();
-		StrictMode.setThreadPolicy(policy);
-		// Restore apps state (if exists) after rotation.
-		if (savedInstanceState != null) {
-			mUseBoth = savedInstanceState.getBoolean(KEY_BOTH);
-		} else {
-			mUseBoth = false;
-		}
-		mUseBoth = true;
-		mGeocoderAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD
-				&& Geocoder.isPresent();
-
-		// Handler for updating text fields on the UI like the lat/long and
-		// address.
-		mHandlerLOc = new Handler() {
-			public void handleMessage(Message msg) {
-				switch (msg.what) {
-				case UPDATE_ADDRESS:
-					Log.e("Location", (String) msg.obj);
-				case UPDATE_LATLNG:
-					Log.e("Location", (String) msg.obj);
-					break;
-				}
-			}
-		};
-		// Get a reference to the LocationManager object.
-		mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // Handler for updating text fields on the UI like the lat/long and address.
+        mHandlerLOc = new Handler() {
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case UPDATE_ADDRESS:
+                    	Log.e("Location", (String)msg.obj);
+                    case UPDATE_LATLNG:
+                        Log.e("Location", (String)msg.obj);
+                        break;
+                }
+            }
+        };
+        // Get a reference to the LocationManager object.
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 	}
 
-	/**
-	 * function to load map. If map is not created it will create it for you
-	 * */
-	private void initilizeMap() {
-		if (googleMap == null) {
-			googleMap = ((MapFragment) getFragmentManager().findFragmentById(
-					R.id.map)).getMap();
-
-			// check if map is created successfully or not
-			if (googleMap == null) {
-				Toast.makeText(getApplicationContext(),
-						"Sorry! unable to create maps", Toast.LENGTH_SHORT)
-						.show();
-			}
-		}
-	}
-
-	// Restores UI states after rotation.
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putBoolean(KEY_BOTH, mUseBoth);
-	}
+    /**
+     * function to load map. If map is not created it will create it for you
+     * */
+    private void initilizeMap() {
+        if (googleMap == null) {
+            googleMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+ 
+            // check if map is created successfully or not
+            if (googleMap == null) {
+                Toast.makeText(getApplicationContext(), "Sorry! unable to create maps", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+    
+    // Restores UI states after rotation.
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(KEY_BOTH, mUseBoth);
+    }
 
 	@Override
 	protected void onResume() {
@@ -241,18 +234,19 @@ public class AsaActivity extends Activity {
 		initilizeMap();
 		setupMyLocation();
 	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-	}
-
-	// Stop receiving location updates whenever the Activity becomes invisible.
-	@Override
-	protected void onStop() {
-		super.onStop();
-		mLocationManager.removeUpdates(listener);
-	}
+	
+	   
+	   @Override
+	   protected void onStart() {
+	       super.onStart();
+	   }
+	   
+	   // Stop receiving location updates whenever the Activity becomes invisible.
+	   @Override
+	   protected void onStop() {
+	       super.onStop();
+	       mLocationManager.removeUpdates(listener);
+	   }
 
 	void showDialog() {
 		// DialogFragment.show() will take care of adding the fragment
@@ -270,20 +264,23 @@ public class AsaActivity extends Activity {
 		newFragment.show(ft, "dialog");
 	}
 
-	// benötigt für die Routenberechnung
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// Decide what to do based on the original request code
-		switch (requestCode) {
-		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
-			// If the result code is Activity.RESULT_OK, try to connect again
-			switch (resultCode) {
-			case Activity.RESULT_OK:
-				// Try the request again
-				break;
-			}
-		}
-	}
+
+
+	   //benötigt für die Routenberechnung
+	   @Override
+	   protected void onActivityResult(
+	           int requestCode, int resultCode, Intent data) {
+	       // Decide what to do based on the original request code
+	       switch (requestCode) {
+	           case CONNECTION_FAILURE_RESOLUTION_REQUEST :
+	            // If the result code is Activity.RESULT_OK, try to connect again
+	           switch (resultCode) {
+	               case Activity.RESULT_OK :
+	               //Try the request again
+	               break;
+	           }
+	       }
+	   }
 
 	private List<POI> getAllPoi() {
 		PoiManager manager = new PoiManager();
@@ -292,7 +289,7 @@ public class AsaActivity extends Activity {
 
 	OnClickListener mStartListener = new OnClickListener() {
 		public void onClick(View v) {
-			if (mStartTime == 0L) {
+			if (mStartTime == 10000) {
 				mStartTime = System.currentTimeMillis();
 				mHandler.removeCallbacks(mUpdateTimeTask);
 				mHandler.postDelayed(mUpdateTimeTask, 100);
@@ -303,19 +300,15 @@ public class AsaActivity extends Activity {
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
 			final long start = mStartTime;
-			long millis = SystemClock.uptimeMillis() - start;
-//			int seconds = (int) (millis / 1000) % 60;
-//			int minutes = (int) ((millis / (1000 * 60)) % 60);
-//			int hours = (int) ((millis / (1000 * 60 * 60)) % 24);
+			long millis = SystemClock.uptimeMillis() + start;
+			int seconds = (int) (millis / 1000) % 60;
+			int minutes = (int) ((millis / (1000 * 60)) % 60);
+			int hours = (int) ((millis / (1000 * 60 * 60)) % 24);
 			// int seconds = (int) (millis / 1000);
 			// int minutes = seconds / 60;
 			// seconds = seconds % 60;
-			
-			asaStartTime -= 1000;
 
-			asaTimeTextView.setText(timeFormat.format(new Date(asaStartTime)));
-			double progress = (asaStartTime/21600000.0)*100;
-			asaTimeProgressBar.setProgress((int)progress);
+			asaTimeTextView.setText(timeFormat.format(new Date(millis)));
 
 			// if (seconds < 10) {
 			// asaTimeTextView.setText("" + minutes + ":0" + seconds);
@@ -323,7 +316,10 @@ public class AsaActivity extends Activity {
 			// asaTimeTextView.setText("" + minutes + ":" + seconds);
 			// }
 
-			mHandler.postAtTime(this, start	+ millis + 1000);
+			mHandler.postAtTime(
+					this,
+					start
+							+ (((hours * 60 * 60) + (minutes * 60) + seconds + 1) * 1000));
 		}
 	};
 

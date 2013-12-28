@@ -85,8 +85,8 @@ public class AsaActivity extends Activity {
 
 	private Handler mHandler = new Handler();
 	long mStartTime = 0L;
-	long asaStartTime = 21600000;
-	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+	long asaStartTime = 25200000;
+	SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm:ss");
 
 	TextView asaHeaderTextView;
 	TextView asaTimeTextView;
@@ -141,7 +141,7 @@ public class AsaActivity extends Activity {
 		asaHeaderTextView.setTypeface(header_typeface);
 
 		System.setProperty("org.xml.sax.driver", "org.xmlpull.v1.sax2.Driver");
-		asaTimeProgressBar.setProgress(100);
+
 		asaTimeToggleButton
 				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 					public void onCheckedChanged(CompoundButton buttonView,
@@ -310,12 +310,8 @@ public class AsaActivity extends Activity {
 			// int seconds = (int) (millis / 1000);
 			// int minutes = seconds / 60;
 			// seconds = seconds % 60;
-			
-			asaStartTime -= 1000;
 
-			asaTimeTextView.setText(timeFormat.format(new Date(asaStartTime)));
-			double progress = (asaStartTime/21600000.0)*100;
-			asaTimeProgressBar.setProgress((int)progress);
+			asaTimeTextView.setText(timeFormat.format(new Date(millis)));
 
 			// if (seconds < 10) {
 			// asaTimeTextView.setText("" + minutes + ":0" + seconds);
@@ -323,7 +319,7 @@ public class AsaActivity extends Activity {
 			// asaTimeTextView.setText("" + minutes + ":" + seconds);
 			// }
 
-			mHandler.postAtTime(this, start	+ millis + 1000);
+			mHandler.postAtTime(this, start	+ millis);
 		}
 	};
 

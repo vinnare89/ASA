@@ -315,6 +315,7 @@ public class AsaActivity extends Activity {
 
 			asaTimeTextView.setText(timeFormat.format(new Date(asaStartTime)));
 			double progress = (asaStartTime/21600000.0)*100;
+			Log.e("progress !!!!!!!!!!", progress + "");
 			asaTimeProgressBar.setProgress((int)progress);
 
 			// if (seconds < 10) {
