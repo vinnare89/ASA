@@ -109,6 +109,7 @@ public class AsaActivity extends Activity {
 	boolean RoutetoTarget = false;
 	double TargetLon = 13.401747;
 	double TargetLat = 52.518728;
+	CameraPosition cameraPosition;
 	
 	public static double currentLocationLatitude = 0.0;
 	public static double currentLocationLongitude = 0.0;
@@ -417,28 +418,17 @@ public class AsaActivity extends Activity {
 			double lat = location.getLatitude();
 			double lon = location.getLongitude();
 			LatLng coordinate = new LatLng(lat, lon);
-			if (RoutetoTarget) {
-				if (StartCase) {
-					MyLocMO = new MarkerOptions()
-							.position(coordinate)
-							.title("You")
-							.snippet("your currrent position")
-							.icon(BitmapDescriptorFactory
-									.fromResource(R.drawable.ic_launcher));
-					MyLocation = googleMap.addMarker(MyLocMO);
-					StartCase = false;
-				} else {
-					MyLocMO = new MarkerOptions()
-							.position(coordinate)
-							.title("You")
-							.snippet("your currrent position")
-							.icon(BitmapDescriptorFactory
-									.fromResource(R.drawable.ic_launcher));
-					getRoutetoTarget(coordinate);
-				}
-			}else{
-        	   MyLocMO = new MarkerOptions().position(coordinate).title("You").snippet("your currrent position").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));
-	           MyLocation = googleMap.addMarker(MyLocMO);
+    	   MyLocMO = new MarkerOptions().position(coordinate).title("You").snippet("your currrent position").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));
+           MyLocation = googleMap.addMarker(MyLocMO);
+           cameraPosition = new CameraPosition.Builder().target(coordinate).zoom(16).build();
+ 	        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+           if(RoutetoTarget){
+	           if(StartCase){
+		           StartCase = false;
+	        	   getRoutetoTarget(coordinate);
+	           }else{
+	        	   getRoutetoTarget(coordinate);
+	           }
            }
 		}
 
@@ -632,7 +622,7 @@ public class AsaActivity extends Activity {
 								.fromResource(R.drawable.ic_launcher));
 				NextM = googleMap.addMarker(Next);
 				// set cameraview
-				CameraPosition cameraPosition = new CameraPosition.Builder()
+				cameraPosition = new CameraPosition.Builder()
 						.target(currentPos).zoom(16).bearing(degree).build();
 				googleMap.animateCamera(CameraUpdateFactory
 						.newCameraPosition(cameraPosition));
