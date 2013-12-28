@@ -1,6 +1,7 @@
 package de.thwildau.asa.rest;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.thwildau.asa.AsaActivity;
@@ -18,8 +19,10 @@ public class PoiManager {
 		url.append(baseUrl);
 		url.append("?lat=" + AsaActivity.currentLocationLatitude);
 		url.append("&long=" + AsaActivity.currentLocationLongitude);
-		url.append("&dist=" + "25");
-		url.append("&sprit=" + "e5");
+		String dist = String.valueOf(AsaActivity.asaDistanceSpinner.getSelectedItem());
+		url.append("&dist=" + dist.substring(0, dist.length()-3));
+		String sprit = String.valueOf(AsaActivity.asaFuelSpinner.getSelectedItem());
+		url.append("&sprit=" + sprit);
 		OSLCDataSet dataset = new OSLCDataSet(url.toString(), "user", "user", true);
 		
 		for (String path : dataset.getAllPaths()) {
@@ -32,6 +35,7 @@ public class PoiManager {
 			list.add(poi);
 		}
 		System.out.println(list); 
+		Collections.sort(list);
 		return list; 
 	}
 

@@ -1,0 +1,12 @@
+package de.thwildau.asa;
+
+import android.app.Activity;
+import android.widget.ArrayAdapter;
+
+public class TrafficListView extends ArrayAdapter<String> {
+	
+	public TrafficListView(Activity context, String[] values){
+		
+	}
+
+}

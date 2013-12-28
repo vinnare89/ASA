@@ -68,8 +68,8 @@
                 android:textStyle="italic" />
 
             <ToggleButton
-                style="@style/AsaControlButton"
                 android:id="@+id/asa_control_time_toggle_button"
+                style="@style/AsaControlButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ToggleButton" />
@@ -89,25 +89,31 @@
                 android:layout_gravity="center_horizontal" />
 
             <Button
-                style="@style/AsaControlButton"
                 android:id="@+id/button1"
+                style="@style/AsaControlButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Button" />
 
             <Button
-                style="@style/AsaControlButton"
                 android:id="@+id/button2"
+                style="@style/AsaControlButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Button" />
 
-            <ProgressBar
-                android:id="@+id/asa_progressbar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
+            <Spinner
+                android:id="@+id/distance_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/distance_array"
+                android:prompt="@string/distance_prompt" />
+            <Spinner
+                android:id="@+id/fuel_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/fuel_array"
+                android:prompt="@string/fuel_prompt" />
         </LinearLayout>
 
         <LinearLayout

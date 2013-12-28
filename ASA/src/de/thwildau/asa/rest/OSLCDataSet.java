@@ -20,6 +20,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
+import android.util.Log;
+
 /**
  * @author z0036w8h
  *
@@ -71,6 +73,7 @@ public class OSLCDataSet implements Iterable<OSLCEntry>{
 			OSLCContentHandler srh = new OSLCContentHandler(this);
 			reader.setContentHandler(srh);
 			reader.parse(new InputSource(new StringReader(res.getResponseBody())));
+			System.out.println(res.getResponseBody());
 			
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block

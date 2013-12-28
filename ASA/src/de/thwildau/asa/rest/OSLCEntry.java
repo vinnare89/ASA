@@ -35,14 +35,14 @@ public class OSLCEntry {
 				//if a value already exists
 				if (tmp != null) {
 					//create a new sublist or add the value to the sublist if it already exists
-					if (tmp instanceof List) {
-						((List<String>) tmp).add(value);
-					} else {
-						List<String> list = new LinkedList<String>();
-						_data.add(index, list);
-						list.add((String) tmp);
-						list.add(value);
-					}
+//					if (tmp instanceof List) {
+//						((List<String>) tmp).add(value);
+//					} else {
+//						List<String> list = new LinkedList<String>();
+//						_data.add(index, list);
+//						list.add((String) tmp);
+//						list.add(value);
+//					}
 				} else {
 					//if value not already exists add it to the data list
 					_data.add(index, value);

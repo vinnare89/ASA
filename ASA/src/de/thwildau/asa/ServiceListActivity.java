@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +12,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import de.thwildau.asa.rest.POI;
 import de.thwildau.asa.rest.PoiManager;
 
@@ -29,9 +31,25 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		final ListView listview = (ListView) findViewById(R.id.service_list_view);
 		poiList = PoiManager.getAllRequests();
 		ArrayList<String> stringList = new ArrayList<String>();
+		ArrayList<Boolean> wcList = new ArrayList<Boolean>();
+		ArrayList<Boolean> shopList = new ArrayList<Boolean>();
+		ArrayList<Boolean> ecList = new ArrayList<Boolean>();
+		ArrayList<Boolean> imbissList = new ArrayList<Boolean>();
+		ArrayList<Boolean> spielplatzList = new ArrayList<Boolean>();
+		ArrayList<Boolean> duscheList = new ArrayList<Boolean>();
+		ArrayList<Integer> parkingTotalList = new ArrayList<Integer>();
+		ArrayList<Integer> parkingAvailableList = new ArrayList<Integer>();
 		for (POI p : poiList) {
-			stringList.add("\t" + p.getStrasse() + " " + p.getPlz() + " "
-					+ p.getOrt() + "\t\t" + p.getSprit() + " €/l");
+			stringList.add("\t" + p.getStrasse() + " " +  p.getHausNr() + " " + p.getPlz() + " "
+					+ p.getOrt() + "\t\t" + p.getSprit() + " €/l\t\t" + p.getEntfernung() + " km\t\t");
+			wcList.add(p.isWc());
+			shopList.add(p.isShop());
+			ecList.add(p.isEc());
+			imbissList.add(p.isImbiss());
+			spielplatzList.add(p.isSpielplatz());
+			duscheList.add(p.isDusche());
+			parkingAvailableList.add(p.getParkingAvailable());
+			parkingTotalList.add(p.getParkingTotal());
 		}
 		// String[] values = new String[] { "Android", "iPhone",
 		// "WindowsMobile",
@@ -40,6 +58,14 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		// "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
 		// "Android", "iPhone", "WindowsMobile" };
 		String[] values = stringList.toArray(new String[0]);
+		Boolean[] wcs = wcList.toArray(new Boolean[0]);
+		Boolean[] shops = shopList.toArray(new Boolean[0]);
+		Boolean[] ecs = ecList.toArray(new Boolean[0]);
+		Boolean[] imbisss = imbissList.toArray(new Boolean[0]);
+		Boolean[] spielatzs = spielplatzList.toArray(new Boolean[0]);
+		Boolean[] dusches = duscheList.toArray(new Boolean[0]);
+		Integer[] parkingTotals = parkingTotalList.toArray(new Integer[0]);
+		Integer[] parkingAvailables = parkingAvailableList.toArray(new Integer[0]);
 		Integer[] images = new Integer[values.length];
 		for (int i = 0; i < images.length; i++) {
 			try {
@@ -83,36 +109,36 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		// final StableArrayAdapter adapter = new StableArrayAdapter(this,
 		// android.R.layout.simple_list_item_1, list);
 		PoiListView adapter = new PoiListView(ServiceListActivity.this, values,
-				images);
+				images, wcs, shops, ecs, imbisss, spielatzs, dusches, parkingAvailables, parkingTotals);
 
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
 	}
-
+	
 	private class StableArrayAdapter extends ArrayAdapter<String> {
 
-		HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
+        HashMap<String, Integer> mIdMap = new HashMap<String, Integer>();
 
-		public StableArrayAdapter(Context context, int textViewResourceId,
-				List<String> objects) {
-			super(context, textViewResourceId, objects);
-			for (int i = 0; i < objects.size(); ++i) {
-				mIdMap.put(objects.get(i), i);
-			}
-		}
+        public StableArrayAdapter(Context context, int textViewResourceId,
+                        List<String> objects) {
+                super(context, textViewResourceId, objects);
+                for (int i = 0; i < objects.size(); ++i) {
+                        mIdMap.put(objects.get(i), i);
+                }
+        }
 
-		@Override
-		public long getItemId(int position) {
-			String item = getItem(position);
-			return mIdMap.get(item);
-		}
+        @Override
+        public long getItemId(int position) {
+                String item = getItem(position);
+                return mIdMap.get(item);
+        }
 
-		@Override
-		public boolean hasStableIds() {
-			return true;
-		}
+        @Override
+        public boolean hasStableIds() {
+                return true;
+        }
 
-	}
+}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int postition, long id) {

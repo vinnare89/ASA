@@ -1,0 +1,15 @@
+package de.thwildau.asa;
+
+import android.app.Activity;
+import android.widget.ArrayAdapter;
+
+public class TrafficListView extends ArrayAdapter<String> {
+	private final Activity context;
+	private final String[] web;
+	
+	public TrafficListView(Activity context, String[] values){
+		super(context, R.layout.list_item_layout, values);
+		
+	}
+
+}

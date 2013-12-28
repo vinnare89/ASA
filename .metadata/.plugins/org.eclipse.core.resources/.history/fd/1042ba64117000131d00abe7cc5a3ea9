@@ -1,0 +1,42 @@
+package de.thwildau.asa;
+
+import android.app.Activity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+public class TrafficListView extends ArrayAdapter<String> {
+	private final Activity context;
+	private final String[] values;
+	
+	public TrafficListView(Activity context, String[] values){
+		super(context, R.layout.traffic_list_item_layout, values);
+		
+		this.context = context;
+		this.values = values;
+		
+	}
+	
+	@Override
+	public View getView(int position, View view, ViewGroup parent) {
+		LayoutInflater inflater = context.getLayoutInflater();
+		View rowView = inflater.inflate(R.layout.traffic_list_item_layout, null, true);
+		TextView txtTitle = (TextView) rowView.findViewById(R.id.traffic_txt);
+//		ImageView imageView = (ImageView) rowView.findViewById(R.id.img);
+//		ImageView wcView = (ImageView) rowView.findViewById(R.id.toilette);
+//		ImageView shopView = (ImageView) rowView.findViewById(R.id.shop);
+//		ImageView ecView = (ImageView) rowView.findViewById(R.id.ec);
+//		ImageView imbissView = (ImageView) rowView.findViewById(R.id.imbiss);
+//		ImageView spielplatzView = (ImageView) rowView.findViewById(R.id.spielplatz);
+//		ImageView duscheView = (ImageView) rowView.findViewById(R.id.dusche);
+//		Button reserveButton = (Button) rowView.findViewById(R.id.reserve);
+		
+		txtTitle.setText(values[position]);
+		return rowView;
+	}
+
+}

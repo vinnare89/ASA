@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:stretchColumns="1">
+    <TableRow>
+
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:id="@+id/txt"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp" />
+        
+        <ImageView
+            android:id="@+id/toilette"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/toilette"
+            android:layout_gravity="right|center_vertical" />
+        <ImageView
+            android:id="@+id/shop"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/shop"
+            android:layout_gravity="right|center_vertical" />
+        <ImageView
+            android:id="@+id/ec"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ec"
+            android:layout_gravity="right|center_vertical" />
+        <ImageView
+            android:id="@+id/imbiss"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/imbiss"
+            android:layout_gravity="right|center_vertical" />
+        <ImageView
+            android:id="@+id/spielplatz"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/spielplatz"
+            android:layout_gravity="right|center_vertical" />
+        <ImageView
+            android:id="@+id/dusche"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/dusche"
+            android:layout_gravity="right|center_vertical" />
+
+    </TableRow>
+
+</TableLayout>

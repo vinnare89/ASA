@@ -33,5 +33,20 @@
     <string name="not_support_network">Network provider not supported</string>
     <string name="use_fine_provider">Fine-grain provider</string>
     <string name="use_both_providers">Both providers</string>
+    <string name="distance_prompt">Choose a distance!</string>
+    <string-array name="distance_array">
+        <item>2 km</item>
+        <item>5 km</item>
+        <item>10 km</item>
+        <item>25 km</item>
+		<item>50 km</item>
+    </string-array>
+    <string name="fuel_prompt">Choose a distance!</string>
+    <string-array name="fuel_array">
+        <item>e5</item>
+        <item>e10</item>
+        <item>diesel</item>
+    </string-array>
+    
 
 </resources>

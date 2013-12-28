@@ -35,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -95,6 +96,8 @@ public class AsaActivity extends Activity {
 	TextView asaTimeTextView;
 	ToggleButton asaTimeToggleButton;
 	ProgressBar asaTimeProgressBar;
+	public static Spinner asaDistanceSpinner;
+	public static Spinner asaFuelSpinner;
 	Button testButton;
 	Button testButton2;
 
@@ -143,6 +146,8 @@ public class AsaActivity extends Activity {
 		asaTimeProgressBar = (ProgressBar) findViewById(R.id.asa_control_time_progressbar);
 		asaTimeTextView = (TextView) findViewById(R.id.asa_control_time_text_view);
 		asaTimeToggleButton = (ToggleButton) findViewById(R.id.asa_control_time_toggle_button);
+		asaDistanceSpinner = (Spinner) findViewById(R.id.distance_spinner);
+		asaFuelSpinner = (Spinner) findViewById(R.id.fuel_spinner);
 
 		testButton = (Button) findViewById(R.id.button1);
 		testButton2 = (Button) findViewById(R.id.button2);
@@ -175,8 +180,9 @@ public class AsaActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// showDialog();
-				getAllPoi();
+				Intent intent = new Intent(getApplicationContext(),
+						TrafficListActivity.class);
+				startActivity(intent);
 			}
 		});
 
@@ -219,6 +225,7 @@ public class AsaActivity extends Activity {
 		};
 		// Get a reference to the LocationManager object.
 		mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		
 
 	}
 
@@ -420,7 +427,7 @@ public class AsaActivity extends Activity {
 			LatLng coordinate = new LatLng(lat, lon);
     	   MyLocMO = new MarkerOptions().position(coordinate).title("You").snippet("your currrent position").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));
            MyLocation = googleMap.addMarker(MyLocMO);
-           cameraPosition = new CameraPosition.Builder().target(coordinate).zoom(16).build();
+           cameraPosition = new CameraPosition.Builder().target(coordinate).zoom(10).build();
  	        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
            if(RoutetoTarget){
 	           if(StartCase){
@@ -604,7 +611,7 @@ public class AsaActivity extends Activity {
 				currentPos = directionPoint.get(i);
 			}
 			if (i == 2) {
-				float degree = (float) getBearing(directionPoint.get(i),
+				float degree = 360 - (float) getBearing(directionPoint.get(i),
 						currentPos);
 				System.out.println("float: " + degree);
 				MarkerOptions current = new MarkerOptions()
@@ -655,4 +662,5 @@ public class AsaActivity extends Activity {
 		TargetLon = lon;
 		RoutetoTarget = true;
 	}
+	
 }

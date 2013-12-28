@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ASA</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="app_name_italic">ASA&#160;</string>
+    
+    <!-- Login Menu -->
+    <string name="login_subheader">- Die Autofahrer Service App -</string>
+    <string name="login_username">Username</string>
+    <string name="login_password">Password</string>
+    <string name="login_submit">Submit</string>
+    
+    <!-- Main Menu -->
+    <string name="main_menu_lkw">LKW</string>
+    <string name="main_menu_pkw">PKW</string>
+    <string name="main_menu_bus">Bus</string>
+    <string name="main_menu_alarm">Wecker</string>
+    <string name="main_menu_activities">Aktivitäten</string>
+    <string name="main_menu_information">Informationen</string>
+    <string name="main_menu_logout">LOGOUT</string>
+    
+    <!-- Asa Activity -->
+    <string name="asa_control_header">Options</string>
+    <string name="asa_control_subheader">Click any Button</string>
+    <string name="address">Address:</string>
+    <string name="enable_gps">Enable GPS</string>
+    <string name="enable_gps_dialog">GPS provider not enabled. Would you like to enable it?</string>
+    <string name="latlng">Lat/Long:</string>
+    <string name="unknown">--Unknown--</string>
+    <string name="not_support_gps">GPS provider not supported</string>
+    <string name="not_support_network">Network provider not supported</string>
+    <string name="use_fine_provider">Fine-grain provider</string>
+    <string name="use_both_providers">Both providers</string>
+
+</resources>

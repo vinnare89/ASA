@@ -2,73 +2,77 @@ package de.thwildau.asa.rest;
 
 import android.util.Log;
 
-public class POI {
-	
+public class POI implements Comparable<POI> {
+
 	private String strasse;
-	
+
 	private String mtsk_id;
-	
-	private String entfernung;
-	
+
+	private double entfernung;
+
 	private String breitengrad;
-	
+
 	private String laengengrad;
-	
+
 	private String name;
-	
+
 	private String ort;
-	
+
 	private String plz;
-	
+
 	private String datum;
-	
+
 	private String marke;
-	
+
 	private String hausNr;
-	
+
 	private String sprit;
-	
-	
-	public POI(OSLCEntry entry){
+
+	private boolean wc;
+	private boolean shop;
+	private boolean ec;
+	private boolean imbiss;
+	private boolean spielplatz;
+	private boolean dusche;
+
+	private int parkingTotal;
+	private int parkingAvailable;
+
+	public POI(OSLCEntry entry) {
 		this(entry, "pois#entry#");
 	}
-	
+
 	public POI(OSLCEntry entry, String baseUrl) {
-		
-		
-		setStrasse((String)entry.getProperty(baseUrl + "strasse"));
-		setMtsk_id((String)entry.getProperty(baseUrl + "mtsk_id"));
-		setEntfernung((String)entry.getProperty(baseUrl + "entfernung"));
-		setLatitude((String)entry.getProperty(baseUrl + "breitengrad"));
-		setLongitude((String)entry.getProperty(baseUrl + "laengengrad"));
-		setName((String)entry.getProperty(baseUrl + "name"));
-		setOrt((String)entry.getProperty(baseUrl + "ort"));
-		setPlz((String)entry.getProperty(baseUrl + "plz"));
-		setDatum((String)entry.getProperty(baseUrl + "datum"));
-		setMarke((String)entry.getProperty(baseUrl + "marke"));
-		setHausNr((String)entry.getProperty(baseUrl + "hausnr"));
-		setSprit((String)entry.getProperty(baseUrl + "sprit"));
-		
-		System.out.println(getName() + " --> " + getStrasse() + " " + getHausNr());
-		
-		
-	/*	setLink((String)entry.getProperty("id"));
-		setId((String)entry.getProperty(baseUrl + "dc:title"));
-		setHeadline((String)entry.getProperty(baseUrl + "Headline"));
-		setToolVersion((String)entry.getProperty(baseUrl + "ToolVersion"));
-		setSubmitDate((String)entry.getProperty(baseUrl + "SubmitDate"));
-		setSubmitter((String)entry.getProperty(baseUrl + "Submitter"));
-		setRequestType((String)entry.getProperty(baseUrl + "RequestType"));
-		setCustomerName((String)entry.getProperty(baseUrl + "CustomerName"));
-		setCustomerDepartment((String)entry.getProperty(baseUrl + "CustomerDepartment"));
-		setCustomerMail((String)entry.getProperty(baseUrl + "CustomerMail"));
-		setCustomer((String)entry.getProperty(baseUrl + "Customer"));
-		setOwner((String)entry.getProperty(baseUrl + "CurrentOwner"));
-		setDescription((String)entry.getProperty(baseUrl + "ProblemDescription"));
-		setToolName((String)entry.getProperty(baseUrl + "Tool#Name"));
-		
-		System.out.println(getDescription());*/
-		
+
+		setStrasse((String) entry.getProperty(baseUrl + "strasse"));
+		setMtsk_id((String) entry.getProperty(baseUrl + "mtsk_id"));
+		setEntfernung(Double.parseDouble((String) entry.getProperty(baseUrl
+				+ "entfernung")));
+		setLatitude((String) entry.getProperty(baseUrl + "breitengrad"));
+		setLongitude((String) entry.getProperty(baseUrl + "laengengrad"));
+		setName((String) entry.getProperty(baseUrl + "name"));
+		setOrt((String) entry.getProperty(baseUrl + "ort"));
+		setPlz((String) entry.getProperty(baseUrl + "plz"));
+		setDatum((String) entry.getProperty(baseUrl + "datum"));
+		setMarke((String) entry.getProperty(baseUrl + "marke"));
+		setHausNr((String) entry.getProperty(baseUrl + "hausnr"));
+		setSprit((String) entry.getProperty(baseUrl + "sprit"));
+
+		setWc(Boolean.parseBoolean((String) entry.getProperty(baseUrl + "wc")));
+		setShop(Boolean.parseBoolean((String) entry.getProperty(baseUrl
+				+ "shop")));
+		setEc(Boolean.parseBoolean((String) entry.getProperty(baseUrl + "ec")));
+		setImbiss(Boolean.parseBoolean((String) entry.getProperty(baseUrl
+				+ "imbiss")));
+		setSpielplatz(Boolean.parseBoolean((String) entry.getProperty(baseUrl
+				+ "spielplatz")));
+		setDusche(Boolean.parseBoolean((String) entry.getProperty(baseUrl
+				+ "dusche")));
+
+		setParkingTotal(Integer.parseInt((String) entry.getProperty(baseUrl
+				+ "parkingPlaces#total")));
+		setParkingAvailable(Integer.parseInt((String) entry.getProperty(baseUrl
+				+ "parkingPlaces#available")));
 	}
 
 	public String getStrasse() {
@@ -87,11 +91,11 @@ public class POI {
 		this.mtsk_id = mtsk_id;
 	}
 
-	public String getEntfernung() {
+	public Double getEntfernung() {
 		return entfernung;
 	}
 
-	public void setEntfernung(String entfernung) {
+	public void setEntfernung(Double entfernung) {
 		this.entfernung = entfernung;
 	}
 
@@ -165,6 +169,81 @@ public class POI {
 
 	public void setSprit(String sprit) {
 		this.sprit = sprit;
+	}
+
+	public boolean isWc() {
+		return wc;
+	}
+
+	public void setWc(boolean wc) {
+		this.wc = wc;
+	}
+
+	public boolean isShop() {
+		return shop;
+	}
+
+	public void setShop(boolean shop) {
+		this.shop = shop;
+	}
+
+	public boolean isEc() {
+		return ec;
+	}
+
+	public void setEc(boolean ec) {
+		this.ec = ec;
+	}
+
+	public boolean isImbiss() {
+		return imbiss;
+	}
+
+	public void setImbiss(boolean imbiss) {
+		this.imbiss = imbiss;
+	}
+
+	public boolean isSpielplatz() {
+		return spielplatz;
+	}
+
+	public void setSpielplatz(boolean spielplatz) {
+		this.spielplatz = spielplatz;
+	}
+
+	public boolean isDusche() {
+		return dusche;
+	}
+
+	public void setDusche(boolean dusche) {
+		this.dusche = dusche;
+	}
+
+	@Override
+	public int compareTo(POI another) {
+		// TODO Auto-generated method stub
+		double result = this.getEntfernung() - another.getEntfernung();
+		if (result < 0.0) {
+			return -1;
+		} else {
+			return 1;
+		}
+	}
+
+	public int getParkingTotal() {
+		return parkingTotal;
+	}
+
+	public void setParkingTotal(int parkingTotal) {
+		this.parkingTotal = parkingTotal;
+	}
+
+	public int getParkingAvailable() {
+		return parkingAvailable;
+	}
+
+	public void setParkingAvailable(int parkingAvailable) {
+		this.parkingAvailable = parkingAvailable;
 	}
 
 }
