@@ -399,13 +399,23 @@ public class AsaActivity extends Activity {
 	}
 
 	private final LocationListener listener = new LocationListener() {
-
+	   double lat = 0.0;
+	   double lng = 0.0;
+	   
+	   public double getLatitude(){
+		 return lat;  
+	   }
+	   
+	   public double getLongitude(){
+		 return lng;  
+	   }
+		   
 		@Override
 		public void onLocationChanged(Location location) {
 			// A new location update is received.
 			updateUILocation(location);
-			double lat = location.getLatitude();
-			double lng = location.getLongitude();
+			lat = location.getLatitude();
+			lng = location.getLongitude();
 			LatLng coordinate = new LatLng(lat, lng);
 			if (RoutetoTarget) {
 				if (StartCase) {
@@ -426,7 +436,10 @@ public class AsaActivity extends Activity {
 									.fromResource(R.drawable.ic_launcher));
 					getRoutetoTarget(coordinate);
 				}
-			}
+			}else{
+        	   MyLocMO = new MarkerOptions().position(coordinate).title("You").snippet("your currrent position").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));
+	           MyLocation = googleMap.addMarker(MyLocMO);
+           }
 		}
 
 		@Override
@@ -624,6 +637,13 @@ public class AsaActivity extends Activity {
 			}
 		}
 		googleMap.addPolyline(rectLine);
+	   if((md.getDistanceValue(doc) <= 10) && (directionPoint.size() <= 2)){
+		   //Ziel erreicht
+		   RoutetoTarget = false;
+		   googleMap.clear();
+		   Toast.makeText(this, "ANGEKOMMEN!!!!!!!!!", Toast.LENGTH_LONG).show();
+		   
+	   }
 	}
 
 	public double getBearing(LatLng nextPos, LatLng fromPos) {
