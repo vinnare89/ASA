@@ -57,6 +57,8 @@ import de.thwildau.asa.rest.PoiManager;
 public class AsaActivity extends Activity {
 
 	final Context context = this;
+	
+	public static AsaActivity singleAsaActivity = null;
 
 	int mStackLevel = 0;
 
@@ -82,6 +84,7 @@ public class AsaActivity extends Activity {
 	// A fast frequency ceiling in milliseconds
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
 			* FASTEST_INTERVAL_IN_SECONDS;
+	
 
 	private Handler mHandler = new Handler();
 	long mStartTime = 0L;
@@ -106,6 +109,9 @@ public class AsaActivity extends Activity {
 	boolean RoutetoTarget = false;
 	double TargetLon = 13.401747;
 	double TargetLat = 52.518728;
+	
+	public static double currentLocationLatitude = 0.0;
+	public static double currentLocationLongitude = 0.0;
 
 	private LocationManager mLocationManager;
 	private Handler mHandlerLOc;
@@ -127,6 +133,10 @@ public class AsaActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.asa_layout);
+		
+		if(singleAsaActivity == null){
+			singleAsaActivity = this;
+		}
 
 		asaHeaderTextView = (TextView) findViewById(R.id.asa_header);
 		asaTimeProgressBar = (ProgressBar) findViewById(R.id.asa_control_time_progressbar);
@@ -399,24 +409,14 @@ public class AsaActivity extends Activity {
 	}
 
 	private final LocationListener listener = new LocationListener() {
-	   double lat = 0.0;
-	   double lng = 0.0;
-	   
-	   public double getLatitude(){
-		 return lat;  
-	   }
-	   
-	   public double getLongitude(){
-		 return lng;  
-	   }
 		   
 		@Override
 		public void onLocationChanged(Location location) {
 			// A new location update is received.
 			updateUILocation(location);
-			lat = location.getLatitude();
-			lng = location.getLongitude();
-			LatLng coordinate = new LatLng(lat, lng);
+			double lat = location.getLatitude();
+			double lon = location.getLongitude();
+			LatLng coordinate = new LatLng(lat, lon);
 			if (RoutetoTarget) {
 				if (StartCase) {
 					MyLocMO = new MarkerOptions()
@@ -540,6 +540,8 @@ public class AsaActivity extends Activity {
 			Geocoder geocoder = new Geocoder(mContext, Locale.getDefault());
 
 			Location loc = params[0];
+			currentLocationLatitude = loc.getLatitude();
+			currentLocationLongitude = loc.getLongitude();
 			List<Address> addresses = null;
 			try {
 				addresses = geocoder.getFromLocation(loc.getLatitude(),
@@ -658,6 +660,7 @@ public class AsaActivity extends Activity {
 	}
 
 	public void RoutetoTarget(double lat, double lon) {
+		Log.e("latlong undansdasd", lat + " ########## " + lon);
 		TargetLat = lat;
 		TargetLon = lon;
 		RoutetoTarget = true;

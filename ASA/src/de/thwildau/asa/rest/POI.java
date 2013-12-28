@@ -26,7 +26,7 @@ public class POI {
 	
 	private String hausNr;
 	
-	private String e5;
+	private String sprit;
 	
 	
 	public POI(OSLCEntry entry){
@@ -39,15 +39,15 @@ public class POI {
 		setStrasse((String)entry.getProperty(baseUrl + "strasse"));
 		setMtsk_id((String)entry.getProperty(baseUrl + "mtsk_id"));
 		setEntfernung((String)entry.getProperty(baseUrl + "entfernung"));
-		setBreitengrad((String)entry.getProperty(baseUrl + "breitengrad"));
-		setLaengengrad((String)entry.getProperty(baseUrl + "laengengrad"));
+		setLatitude((String)entry.getProperty(baseUrl + "breitengrad"));
+		setLongitude((String)entry.getProperty(baseUrl + "laengengrad"));
 		setName((String)entry.getProperty(baseUrl + "name"));
 		setOrt((String)entry.getProperty(baseUrl + "ort"));
 		setPlz((String)entry.getProperty(baseUrl + "plz"));
 		setDatum((String)entry.getProperty(baseUrl + "datum"));
 		setMarke((String)entry.getProperty(baseUrl + "marke"));
 		setHausNr((String)entry.getProperty(baseUrl + "hausnr"));
-		setE5((String)entry.getProperty(baseUrl + "e5"));
+		setSprit((String)entry.getProperty(baseUrl + "sprit"));
 		
 		System.out.println(getName() + " --> " + getStrasse() + " " + getHausNr());
 		
@@ -95,19 +95,19 @@ public class POI {
 		this.entfernung = entfernung;
 	}
 
-	public String getBreitengrad() {
+	public String getLatitude() {
 		return breitengrad;
 	}
 
-	public void setBreitengrad(String breitengrad) {
+	public void setLatitude(String breitengrad) {
 		this.breitengrad = breitengrad;
 	}
 
-	public String getLaengengrad() {
+	public String getLongitude() {
 		return laengengrad;
 	}
 
-	public void setLaengengrad(String laengengrad) {
+	public void setLongitude(String laengengrad) {
 		this.laengengrad = laengengrad;
 	}
 
@@ -159,12 +159,12 @@ public class POI {
 		this.hausNr = hausNr;
 	}
 
-	public String getE5() {
-		return e5;
+	public String getSprit() {
+		return sprit;
 	}
 
-	public void setE5(String e5) {
-		this.e5 = e5;
+	public void setSprit(String sprit) {
+		this.sprit = sprit;
 	}
 
 }
