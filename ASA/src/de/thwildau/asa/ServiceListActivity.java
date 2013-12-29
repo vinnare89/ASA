@@ -144,7 +144,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 	public void onItemClick(AdapterView<?> parent, View view, int postition, long id) {
 		Log.e("Clicked on Item", poiList.get(postition).getLatitude()+ " ---- " + poiList.get(postition).getLongitude());
 		AsaActivity.singleAsaActivity.RoutetoTarget(Double.parseDouble(poiList.get(postition).getLatitude()), Double.parseDouble(poiList.get(postition).getLongitude()));
-		AsaActivity.singleAsaActivity.getRoutetoTarget(new LatLng(AsaActivity.currentLocationLatitude,AsaActivity.currentLocationLongitude));
+		AsaActivity.singleAsaActivity.getRoutetoTarget(new LatLng(AsaActivity.currentLocationLatitude,AsaActivity.currentLocationLongitude), "Tankstelle");
 		finish();
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -113,6 +114,9 @@ public class AsaActivity extends Activity {
 	double TargetLon = 13.401747;
 	double TargetLat = 52.518728;
 	CameraPosition cameraPosition;
+    String TargetDesc;
+    List<POI> poiList = new ArrayList<POI>();
+
 	
 	public static double currentLocationLatitude = 0.0;
 	public static double currentLocationLongitude = 0.0;
@@ -432,9 +436,9 @@ public class AsaActivity extends Activity {
            if(RoutetoTarget){
 	           if(StartCase){
 		           StartCase = false;
-	        	   getRoutetoTarget(coordinate);
+	        	   getRoutetoTarget(coordinate, TargetDesc);
 	           }else{
-	        	   getRoutetoTarget(coordinate);
+	        	   getRoutetoTarget(coordinate, TargetDesc);
 	           }
            }
 		}
@@ -566,14 +570,14 @@ public class AsaActivity extends Activity {
 		}
 	};
 
-	public void getRoutetoTarget(LatLng fromPosition) {
+	public void getRoutetoTarget(LatLng fromPosition, String TargetDesc) {
 		// latitude and longitude
 
 		LatLng currentPos = null;
 		googleMap.clear();
 		// create marker
 		markerX = new MarkerOptions()
-				.position(new LatLng(TargetLat, TargetLon)).title("Hello Maps")
+				.position(new LatLng(TargetLat, TargetLon)).title(TargetDesc)
 				.draggable(true);
 
 		// Changing marker icon
@@ -582,7 +586,8 @@ public class AsaActivity extends Activity {
 		// adding marker to the Map
 		googleMap.addMarker(markerX);
 		googleMap.addMarker(MyLocMO);
-
+		drawAllIconsOnMap();
+		
 		// create LatLng-Points
 		LatLng toPosition = new LatLng(TargetLat, TargetLon);
 		// create GMapV2Direction Object
@@ -662,5 +667,22 @@ public class AsaActivity extends Activity {
 		TargetLon = lon;
 		RoutetoTarget = true;
 	}
+	
+	   public void drawAllIconsOnMap(){
+		   //draw all icons on Map
+		   Iterator<POI> iterator = poiList.iterator();
+		   while (iterator.hasNext()) {
+			   POI M = iterator.next();
+			   setIcontoMap(Double.parseDouble(M.getLatitude()), Double.parseDouble(M.getLongitude()), M.getMarke(), "Preis: " + M.getSprit() + "€", R.drawable.not_known);
+		   }
+	   }
+	   
+	   public void setIcontoMap(double lat, double lon, String Desc, String Detail, int Icon){
+		   LatLng Position = new LatLng(lat, lon);
+		   MarkerOptions current = new MarkerOptions().position(Position).title(Desc).snippet(Detail).icon(BitmapDescriptorFactory.fromResource(Icon));
+		   googleMap.addMarker(current);
+		   //add zu icon liste
+		   //poiList.add(current);
+	   }
 	
 }
