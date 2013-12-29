@@ -58,7 +58,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import de.thwildau.asa.rest.POI;
 import de.thwildau.asa.rest.PoiManager;
 
-public class AsaActivity extends Activity {
+public class AsaActivity extends Activity implements OnClickListener {
 
 	final Context context = this;
 	
@@ -103,6 +103,7 @@ public class AsaActivity extends Activity {
 	public static Spinner asaFuelSpinner;
 	Button asaTrafficButton;
 	Button asaServiceButton;
+	Button asaLogoutButton;
 
 	MarkerOptions markerX;
 	Marker MyLocation;
@@ -158,6 +159,8 @@ public class AsaActivity extends Activity {
 
 		asaTrafficButton = (Button) findViewById(R.id.asa_button_traffic);
 		asaServiceButton = (Button) findViewById(R.id.asa_button_service);
+		asaLogoutButton = (Button) findViewById(R.id.asa_logout_button);
+		asaLogoutButton.setOnClickListener(this);
 
 		Typeface header_typeface = Typeface.createFromAsset(getAssets(),
 				"fonts/MOIRE-BOLD.TTF");
@@ -623,20 +626,20 @@ public class AsaActivity extends Activity {
 				float degree = 360 - (float) getBearing(directionPoint.get(i),
 						currentPos);
 				System.out.println("float: " + degree);
-				MarkerOptions current = new MarkerOptions()
-						.position(currentPos)
-						.title("current")
-						.snippet("nextPosition")
-						.icon(BitmapDescriptorFactory
-								.fromResource(R.drawable.ic_launcher));
-				Current = googleMap.addMarker(current);
-				MarkerOptions Next = new MarkerOptions()
-						.position(directionPoint.get(i))
-						.title("NExt")
-						.snippet("nextPosition")
-						.icon(BitmapDescriptorFactory
-								.fromResource(R.drawable.ic_launcher));
-				NextM = googleMap.addMarker(Next);
+//				MarkerOptions current = new MarkerOptions()
+//						.position(currentPos)
+//						.title("current")
+//						.snippet("nextPosition")
+//						.icon(BitmapDescriptorFactory
+//								.fromResource(R.drawable.ic_launcher));
+//				Current = googleMap.addMarker(current);
+//				MarkerOptions Next = new MarkerOptions()
+//						.position(directionPoint.get(i))
+//						.title("NExt")
+//						.snippet("nextPosition")
+//						.icon(BitmapDescriptorFactory
+//								.fromResource(R.drawable.ic_launcher));
+//				NextM = googleMap.addMarker(Next);
 				// set cameraview
 				cameraPosition = new CameraPosition.Builder()
 						.target(currentPos).zoom(16).bearing(degree).build();
@@ -698,13 +701,21 @@ public class AsaActivity extends Activity {
 	   
 	   public void setIcontoMap(double lat, double lon, String Desc, String Detail, int Icon){
 		   LatLng Position = new LatLng(lat, lon);
-		   Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), Icon), 40, 40, true);
-		   MarkerOptions current = new MarkerOptions().position(Position).title(Desc).snippet(Detail).icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+//		   Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), Icon), 40, 40, true);
+//		   MarkerOptions current = new MarkerOptions().position(Position).title(Desc).snippet(Detail).icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+		   MarkerOptions current = new MarkerOptions().position(Position).title(Desc).snippet(Detail).icon(BitmapDescriptorFactory.fromResource(Icon));
 //		   GroundOverlayOptions current = new GroundOverlayOptions().position(Position, 200f).image(BitmapDescriptorFactory.fromResource(Icon));
 //		   googleMap.addGroundOverlay(current);
 		   googleMap.addMarker(current);
 		   //add zu icon liste
 		   //poiList.add(current);
 	   }
+
+	@Override
+	public void onClick(View arg0) {
+		Intent i = new Intent(getApplicationContext(), StartActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
+	}
 	
 }

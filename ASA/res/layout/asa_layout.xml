@@ -79,7 +79,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="- 06:59" />
+                android:text="07:00:00" />
 
             <ProgressBar
                 android:id="@+id/asa_control_time_progressbar"

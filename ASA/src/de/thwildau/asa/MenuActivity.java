@@ -13,12 +13,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MenuActivity extends Activity implements OnTouchListener {
+public class MenuActivity extends Activity implements OnTouchListener, OnClickListener {
 
 	TextView mainMenuHeaderTextView;
 	Button lkwButton;
 	Button pkwButton;
 	Button busButton;
+	Button logoutButton;
 
 
 	@Override
@@ -35,12 +36,22 @@ public class MenuActivity extends Activity implements OnTouchListener {
 		lkwButton = (Button) findViewById(R.id.main_menu_button_lkw);
 		pkwButton = (Button) findViewById(R.id.main_menu_button_pkw);
 		busButton = (Button) findViewById(R.id.main_menu_button_bus);
+		logoutButton = (Button) findViewById(R.id.main_menu_logout_button);
 		
 		lkwButton.setOnTouchListener(this);
 		pkwButton.setOnTouchListener(this);
 		busButton.setOnTouchListener(this);
+		logoutButton.setOnClickListener(this);
 		
-		Toast.makeText(getApplicationContext(), "Welcome " + StartActivity._user.getFullName() + " !", Toast.LENGTH_LONG).show();
+		StringBuilder welcomeText = new StringBuilder();
+		welcomeText.append("Welcome ");
+		if("m".equals(StartActivity._user.getGender())){
+			welcomeText.append("Mr. ");
+		} else {
+			welcomeText.append("Mrs. ");
+		}
+		welcomeText.append(StartActivity._user.getFullName() + " !");
+		Toast.makeText(getApplicationContext(), welcomeText.toString(), Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
@@ -80,4 +91,11 @@ public class MenuActivity extends Activity implements OnTouchListener {
 
         return false;
     }
+
+	@Override
+	public void onClick(View arg0) {
+		Intent i = new Intent(getApplicationContext(), StartActivity.class);
+		i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(i);
+	}
 }
