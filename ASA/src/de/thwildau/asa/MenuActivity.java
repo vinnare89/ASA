@@ -39,9 +39,8 @@ public class MenuActivity extends Activity implements OnTouchListener {
 		lkwButton.setOnTouchListener(this);
 		pkwButton.setOnTouchListener(this);
 		busButton.setOnTouchListener(this);
-
 		
-
+		Toast.makeText(getApplicationContext(), "Welcome " + StartActivity._user.getFullName() + " !", Toast.LENGTH_LONG).show();
 	}
 	
 	@Override

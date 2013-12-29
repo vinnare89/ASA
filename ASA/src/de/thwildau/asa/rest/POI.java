@@ -1,5 +1,6 @@
 package de.thwildau.asa.rest;
 
+import de.thwildau.asa.R;
 import android.util.Log;
 
 public class POI implements Comparable<POI> {
@@ -37,6 +38,8 @@ public class POI implements Comparable<POI> {
 
 	private int parkingTotal;
 	private int parkingAvailable;
+	
+	private int drawableId = R.drawable.not_known;
 
 	public POI(OSLCEntry entry) {
 		this(entry, "pois#entry#");
@@ -244,6 +247,14 @@ public class POI implements Comparable<POI> {
 
 	public void setParkingAvailable(int parkingAvailable) {
 		this.parkingAvailable = parkingAvailable;
+	}
+
+	public int getDrawableId() {
+		return drawableId;
+	}
+
+	public void setDrawableId(int drawableId) {
+		this.drawableId = drawableId;
 	}
 
 }

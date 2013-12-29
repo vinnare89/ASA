@@ -1,0 +1,5 @@
+package de.thwildau.asa.rest;
+
+public class UserManager {
+
+}

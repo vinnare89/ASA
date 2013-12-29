@@ -16,6 +16,8 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Address;
@@ -99,8 +101,8 @@ public class AsaActivity extends Activity {
 	ProgressBar asaTimeProgressBar;
 	public static Spinner asaDistanceSpinner;
 	public static Spinner asaFuelSpinner;
-	Button testButton;
-	Button testButton2;
+	Button asaTrafficButton;
+	Button asaServiceButton;
 
 	MarkerOptions markerX;
 	Marker MyLocation;
@@ -115,11 +117,12 @@ public class AsaActivity extends Activity {
 	double TargetLat = 52.518728;
 	CameraPosition cameraPosition;
     String TargetDesc;
-    List<POI> poiList = new ArrayList<POI>();
+    
 
 	
 	public static double currentLocationLatitude = 0.0;
 	public static double currentLocationLongitude = 0.0;
+	public static List<POI> poiList = new ArrayList<POI>();
 
 	private LocationManager mLocationManager;
 	private Handler mHandlerLOc;
@@ -153,8 +156,8 @@ public class AsaActivity extends Activity {
 		asaDistanceSpinner = (Spinner) findViewById(R.id.distance_spinner);
 		asaFuelSpinner = (Spinner) findViewById(R.id.fuel_spinner);
 
-		testButton = (Button) findViewById(R.id.button1);
-		testButton2 = (Button) findViewById(R.id.button2);
+		asaTrafficButton = (Button) findViewById(R.id.asa_button_traffic);
+		asaServiceButton = (Button) findViewById(R.id.asa_button_service);
 
 		Typeface header_typeface = Typeface.createFromAsset(getAssets(),
 				"fonts/MOIRE-BOLD.TTF");
@@ -180,7 +183,7 @@ public class AsaActivity extends Activity {
 					}
 				});
 
-		testButton.setOnClickListener(new OnClickListener() {
+		asaTrafficButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -190,7 +193,7 @@ public class AsaActivity extends Activity {
 			}
 		});
 
-		testButton2.setOnClickListener(new OnClickListener() {
+		asaServiceButton.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -261,7 +264,7 @@ public class AsaActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		initilizeMap();
-		setupMyLocation();
+		setupMyLocation();		
 	}
 
 	@Override
@@ -586,6 +589,7 @@ public class AsaActivity extends Activity {
 		// adding marker to the Map
 		googleMap.addMarker(markerX);
 		googleMap.addMarker(MyLocMO);
+		// add all poi icons to map
 		drawAllIconsOnMap();
 		
 		// create LatLng-Points
@@ -662,7 +666,7 @@ public class AsaActivity extends Activity {
 	}
 
 	public void RoutetoTarget(double lat, double lon) {
-		Log.e("latlong undansdasd", lat + " ########## " + lon);
+		Log.e("latlong undansdasd", lat + " ######## " + lon);
 		TargetLat = lat;
 		TargetLon = lon;
 		RoutetoTarget = true;
@@ -673,13 +677,31 @@ public class AsaActivity extends Activity {
 		   Iterator<POI> iterator = poiList.iterator();
 		   while (iterator.hasNext()) {
 			   POI M = iterator.next();
-			   setIcontoMap(Double.parseDouble(M.getLatitude()), Double.parseDouble(M.getLongitude()), M.getMarke(), "Preis: " + M.getSprit() + "€", R.drawable.not_known);
+			   StringBuilder infoText = new StringBuilder();
+			   infoText.append("Preis: " + M.getSprit() + "€;");
+			   infoText.append("Parking Places " + M.getParkingAvailable() + "/" + M.getParkingTotal());
+			   if(M.isWc())
+				   infoText.append("; WC");
+			   if(M.isShop())
+				   infoText.append("; Shop");
+			   if(M.isEc())
+				   infoText.append("; EC");
+			   if(M.isImbiss())
+				   infoText.append("; Diner");
+			   if(M.isSpielplatz())
+				   infoText.append("; Playground");
+			   if(M.isDusche())
+				   infoText.append("; Shower");
+			   setIcontoMap(Double.parseDouble(M.getLatitude()), Double.parseDouble(M.getLongitude()), M.getMarke(),infoText.toString(), M.getDrawableId());
 		   }
 	   }
 	   
 	   public void setIcontoMap(double lat, double lon, String Desc, String Detail, int Icon){
 		   LatLng Position = new LatLng(lat, lon);
-		   MarkerOptions current = new MarkerOptions().position(Position).title(Desc).snippet(Detail).icon(BitmapDescriptorFactory.fromResource(Icon));
+		   Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), Icon), 40, 40, true);
+		   MarkerOptions current = new MarkerOptions().position(Position).title(Desc).snippet(Detail).icon(BitmapDescriptorFactory.fromBitmap(bitmap));
+//		   GroundOverlayOptions current = new GroundOverlayOptions().position(Position, 200f).image(BitmapDescriptorFactory.fromResource(Icon));
+//		   googleMap.addGroundOverlay(current);
 		   googleMap.addMarker(current);
 		   //add zu icon liste
 		   //poiList.add(current);

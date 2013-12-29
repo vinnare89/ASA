@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -39,6 +38,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		ArrayList<Boolean> duscheList = new ArrayList<Boolean>();
 		ArrayList<Integer> parkingTotalList = new ArrayList<Integer>();
 		ArrayList<Integer> parkingAvailableList = new ArrayList<Integer>();
+		ArrayList<String> idList = new ArrayList<String>();
 		for (POI p : poiList) {
 			stringList.add("\t" + p.getStrasse() + " " +  p.getHausNr() + " " + p.getPlz() + " "
 					+ p.getOrt() + "\t\t" + p.getSprit() + " €/l\t\t" + p.getEntfernung() + " km\t\t");
@@ -50,6 +50,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 			duscheList.add(p.isDusche());
 			parkingAvailableList.add(p.getParkingAvailable());
 			parkingTotalList.add(p.getParkingTotal());
+			idList.add(p.getMtsk_id());
 		}
 		// String[] values = new String[] { "Android", "iPhone",
 		// "WindowsMobile",
@@ -66,6 +67,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		Boolean[] dusches = duscheList.toArray(new Boolean[0]);
 		Integer[] parkingTotals = parkingTotalList.toArray(new Integer[0]);
 		Integer[] parkingAvailables = parkingAvailableList.toArray(new Integer[0]);
+		String[] ids = idList.toArray(new String[0]);
 		Integer[] images = new Integer[values.length];
 		for (int i = 0; i < images.length; i++) {
 			try {
@@ -100,6 +102,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 			} catch (NullPointerException e) {
 				images[i] = R.drawable.not_known;
 			}
+			poiList.get(i).setDrawableId(images[i]);
 		}
 
 		// final ArrayList<String> list = new ArrayList<String>();
@@ -109,7 +112,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		// final StableArrayAdapter adapter = new StableArrayAdapter(this,
 		// android.R.layout.simple_list_item_1, list);
 		PoiListView adapter = new PoiListView(ServiceListActivity.this, values,
-				images, wcs, shops, ecs, imbisss, spielatzs, dusches, parkingAvailables, parkingTotals);
+				images, wcs, shops, ecs, imbisss, spielatzs, dusches, parkingAvailables, parkingTotals, ids);
 
 		listview.setAdapter(adapter);
 		listview.setOnItemClickListener(this);
@@ -142,6 +145,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int postition, long id) {
+		AsaActivity.poiList = this.poiList;
 		Log.e("Clicked on Item", poiList.get(postition).getLatitude()+ " ---- " + poiList.get(postition).getLongitude());
 		AsaActivity.singleAsaActivity.RoutetoTarget(Double.parseDouble(poiList.get(postition).getLatitude()), Double.parseDouble(poiList.get(postition).getLongitude()));
 		AsaActivity.singleAsaActivity.getRoutetoTarget(new LatLng(AsaActivity.currentLocationLatitude,AsaActivity.currentLocationLongitude), "Tankstelle");
