@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
 <fullyQualifiedTypeName name="android.widget.Button"/>
 <fullyQualifiedTypeName name="android.content.Intent"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.rest.POI"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.rest.OSLCEntry"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.rest.OSLCDataSet"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.rest.PoiManager"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="de.thwildau.asa.R.drawable"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.ServiceListActivity"/>
 <fullyQualifiedTypeName name="android.widget.TextView"/>
 <fullyQualifiedTypeName name="android.os.Handler"/>
 <fullyQualifiedTypeName name="android.widget.ToggleButton"/>
 <fullyQualifiedTypeName name="android.os.SystemClock"/>
 <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
-<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
 <fullyQualifiedTypeName name="android.widget.AdapterView.OnItemClickListener"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.PoiListView"/>
 <fullyQualifiedTypeName name="java.lang.Double"/>
@@ -25,14 +21,29 @@
 <fullyQualifiedTypeName name="de.thwildau.asa.AsaActivity.loadTask"/>
 <fullyQualifiedTypeName name="android.widget.Spinner"/>
 <fullyQualifiedTypeName name="java.util.Date"/>
-<fullyQualifiedTypeName name="de.thwildau.asa.AsaActivity"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.R.id"/>
 <fullyQualifiedTypeName name="java.lang.Boolean"/>
 <fullyQualifiedTypeName name="android.opengl.Visibility"/>
-<fullyQualifiedTypeName name="android.util.Log"/>
 <fullyQualifiedTypeName name="java.util.Collections"/>
 <fullyQualifiedTypeName name="java.lang.Comparable"/>
 <fullyQualifiedTypeName name="de.thwildau.asa.rest.TrafficManager"/>
 <fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="de.thwildau.asa.AsaActivity"/>
+<fullyQualifiedTypeName name="de.thwildau.asa.R"/>
+<fullyQualifiedTypeName name="de.thwildau.asa.R.drawable"/>
+<fullyQualifiedTypeName name="net.siemens.railautomation.oslc.http.request.Requester"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.GroundOverlayOptions"/>
+<fullyQualifiedTypeName name="com.google.android.gms.maps.model.BitmapDescriptorFactory"/>
+<fullyQualifiedTypeName name="android.view.View.OnClickListener"/>
+<fullyQualifiedTypeName name="java.lang.StringBuilder"/>
+<fullyQualifiedTypeName name="de.thwildau.asa.StartActivity"/>
+<fullyQualifiedTypeName name="android.util.Log"/>
+<fullyQualifiedTypeName name="android.graphics.Matrix"/>
+<fullyQualifiedTypeName name="com.light.lamptyps.Color"/>
+<fullyQualifiedTypeName name="com.light.controll.LampControll"/>
+<fullyQualifiedTypeName name="java.lang.Exception"/>
+<fullyQualifiedTypeName name="de.thwildau.delightful.ControlActivity.sendColorsTask"/>
 </qualifiedTypeNameHistroy>

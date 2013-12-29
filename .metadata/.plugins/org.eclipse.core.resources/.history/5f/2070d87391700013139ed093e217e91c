@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package com.network.lampprotocol;
+
+import com.light.lamptyps.TubeLamp;
+
+/**
+ * NetzwerkTCPUDP - com.network.lampprotocol - MatrixLampProtocol.java
+ *
+ * @author Phillip Kopprasch
+ * @created 29.12.2013
+ */
+public class MatrixLampProtocol extends LampProtocol {
+
+	/**
+	 * Use TubeProtocol
+	 */
+
+}
