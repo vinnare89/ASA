@@ -8,6 +8,11 @@ import de.thwildau.asa.AsaActivity;
 
 import android.util.Log;
 
+/**
+ *
+ * Class which makes POIs out of a server request
+ *
+ */
 public class PoiManager {
 	
 //	private static String baseUrl = "http://jphil.de:8080/ASA/POI?lat=52.5401&long=12.9776&dist=25&sprit=e5";

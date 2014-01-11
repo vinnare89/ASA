@@ -28,21 +28,19 @@ public class TrafficListActivity extends Activity implements
 		
 		final ListView listview = (ListView) findViewById(R.id.traffic_list_view);
 		
-		// get all traffic messages from server
 		trafficList = TrafficManager.getAllRequests();
-		// initialize dynamic lists of attributes 
+		
 		ArrayList<String> stringList = new ArrayList<String>();
 		ArrayList<String> streetSignList = new ArrayList<String>();
-		// for every entry ...
+		
 		for(Traffic t : trafficList){
-			// set attributes
 			stringList.add(t.getDescription());
 			streetSignList.add(t.getStreetsign());
 		}
-		// get static lists out of the dynamic ones
+		
 		String[] values = stringList.toArray(new String[0]);
 		String[] streetSigns = streetSignList.toArray(new String[0]); 
-		// hand over attributes to adapter
+		
 		TrafficListView adapter = new TrafficListView(TrafficListActivity.this, values, streetSigns);
 
 		listview.setAdapter(adapter);

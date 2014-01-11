@@ -19,7 +19,13 @@ import com.google.android.gms.maps.model.LatLng;
 import de.thwildau.asa.rest.POI;
 import de.thwildau.asa.rest.PoiManager;
 
+/**
+ * 
+ * Activity which shows the list of gas station (POIs)
+ * 
+ */
 public class ServiceListActivity extends Activity implements OnItemClickListener{
+	// list of POIs
 	List<POI> poiList;
 	
 	@Override
@@ -28,7 +34,9 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		setContentView(R.layout.service_list_layout);
 
 		final ListView listview = (ListView) findViewById(R.id.service_list_view);
+		// get all POIs from server
 		poiList = PoiManager.getAllRequests();
+		//initialize the lists attributes
 		ArrayList<String> stringList = new ArrayList<String>();
 		ArrayList<Boolean> wcList = new ArrayList<Boolean>();
 		ArrayList<Boolean> shopList = new ArrayList<Boolean>();
@@ -39,7 +47,9 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		ArrayList<Integer> parkingTotalList = new ArrayList<Integer>();
 		ArrayList<Integer> parkingAvailableList = new ArrayList<Integer>();
 		ArrayList<String> idList = new ArrayList<String>();
+		// for every POI ...
 		for (POI p : poiList) {
+			// set up attributes for single view
 			stringList.add("\t" + p.getStrasse() + " " +  p.getHausNr() + " " + p.getPlz() + " "
 					+ p.getOrt() + "\t\t" + p.getSprit() + " €/l\t\t" + p.getEntfernung() + " km\t\t");
 			wcList.add(p.isWc());
@@ -58,6 +68,8 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		// "Linux", "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux",
 		// "OS/2", "Ubuntu", "Windows7", "Max OS X", "Linux", "OS/2",
 		// "Android", "iPhone", "WindowsMobile" };
+		
+		// transform dynamic lists to static ones
 		String[] values = stringList.toArray(new String[0]);
 		Boolean[] wcs = wcList.toArray(new Boolean[0]);
 		Boolean[] shops = shopList.toArray(new Boolean[0]);
@@ -69,6 +81,7 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		Integer[] parkingAvailables = parkingAvailableList.toArray(new Integer[0]);
 		String[] ids = idList.toArray(new String[0]);
 		Integer[] images = new Integer[values.length];
+		// depending on the vendor set an image
 		for (int i = 0; i < images.length; i++) {
 			try {
 				String brand = poiList.get(i).getMarke();
@@ -111,6 +124,8 @@ public class ServiceListActivity extends Activity implements OnItemClickListener
 		// }
 		// final StableArrayAdapter adapter = new StableArrayAdapter(this,
 		// android.R.layout.simple_list_item_1, list);
+		
+		// hand over static list to adapter of the list view
 		PoiListView adapter = new PoiListView(ServiceListActivity.this, values,
 				images, wcs, shops, ecs, imbisss, spielatzs, dusches, parkingAvailables, parkingTotals, ids);
 

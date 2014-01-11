@@ -57,7 +57,12 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import de.thwildau.asa.rest.POI;
 import de.thwildau.asa.rest.PoiManager;
-
+/**
+ * Activity which will be started after pressing on the LKW-Button at the Main Menu
+ * 
+ * Contains the main logic of the application
+ *
+ */
 public class AsaActivity extends Activity implements OnClickListener {
 
 	final Context context = this;
@@ -89,12 +94,13 @@ public class AsaActivity extends Activity implements OnClickListener {
 	private static final long FASTEST_INTERVAL = MILLISECONDS_PER_SECOND
 			* FASTEST_INTERVAL_IN_SECONDS;
 	
-
+	// parameters for travel time tracking
 	private Handler mHandler = new Handler();
 	long mStartTime = 0L;
 	long asaStartTime = 21600000;
 	SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-
+	
+	// GUI elements
 	TextView asaHeaderTextView;
 	TextView asaTimeTextView;
 	ToggleButton asaTimeToggleButton;
@@ -104,7 +110,9 @@ public class AsaActivity extends Activity implements OnClickListener {
 	Button asaTrafficButton;
 	Button asaServiceButton;
 	Button asaLogoutButton;
-
+	
+	
+	// Google Maps GUI elements 
 	MarkerOptions markerX;
 	Marker MyLocation;
 	Marker Current;
@@ -120,7 +128,7 @@ public class AsaActivity extends Activity implements OnClickListener {
     String TargetDesc;
     
 
-	
+	// location data
 	public static double currentLocationLatitude = 0.0;
 	public static double currentLocationLongitude = 0.0;
 	public static List<POI> poiList = new ArrayList<POI>();
@@ -165,9 +173,11 @@ public class AsaActivity extends Activity implements OnClickListener {
 		Typeface header_typeface = Typeface.createFromAsset(getAssets(),
 				"fonts/MOIRE-BOLD.TTF");
 		asaHeaderTextView.setTypeface(header_typeface);
-
+		// set driver for XML-parsing
 		System.setProperty("org.xml.sax.driver", "org.xmlpull.v1.sax2.Driver");
 		asaTimeProgressBar.setProgress(100);
+		
+		// button for travel time tracking
 		asaTimeToggleButton
 				.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 					public void onCheckedChanged(CompoundButton buttonView,
@@ -185,7 +195,7 @@ public class AsaActivity extends Activity implements OnClickListener {
 						}
 					}
 				});
-
+		// button to get traffic list
 		asaTrafficButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -195,7 +205,7 @@ public class AsaActivity extends Activity implements OnClickListener {
 				startActivity(intent);
 			}
 		});
-
+		// button to get Gas Station (POI) list
 		asaServiceButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -327,7 +337,9 @@ public class AsaActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
-
+	/**
+	 * function the manage the traffic time tracking
+	 */
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
 			final long start = mStartTime;

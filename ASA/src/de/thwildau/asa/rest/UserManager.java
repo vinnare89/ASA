@@ -5,7 +5,11 @@ import java.util.List;
 
 import android.util.Log;
 import de.thwildau.asa.StartActivity;
-
+/**
+ * 
+ * Class to get user date out of a server request
+ *
+ */
 public class UserManager {
 	
 	private static String baseUrl = "http://jphil.de:8080/ASA/LOGIN";

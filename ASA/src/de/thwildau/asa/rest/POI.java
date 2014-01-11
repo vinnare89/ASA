@@ -2,7 +2,12 @@ package de.thwildau.asa.rest;
 
 import de.thwildau.asa.R;
 import android.util.Log;
-
+/**
+ * Class representing a POI
+ * 
+ * Containing all known attributes of a POI
+ *
+ */
 public class POI implements Comparable<POI> {
 
 	private String strasse;
@@ -44,7 +49,11 @@ public class POI implements Comparable<POI> {
 	public POI(OSLCEntry entry) {
 		this(entry, "pois#entry#");
 	}
-
+	/**
+	 * Contructor of an POI
+	 * @param entry
+	 * @param baseUrl
+	 */
 	public POI(OSLCEntry entry, String baseUrl) {
 
 		setStrasse((String) entry.getProperty(baseUrl + "strasse"));
@@ -77,7 +86,9 @@ public class POI implements Comparable<POI> {
 		setParkingAvailable(Integer.parseInt((String) entry.getProperty(baseUrl
 				+ "parkingPlaces#available")));
 	}
-
+	
+	// getter and setter ...
+	
 	public String getStrasse() {
 		return strasse;
 	}
@@ -222,17 +233,6 @@ public class POI implements Comparable<POI> {
 		this.dusche = dusche;
 	}
 
-	@Override
-	public int compareTo(POI another) {
-		// TODO Auto-generated method stub
-		double result = this.getEntfernung() - another.getEntfernung();
-		if (result < 0.0) {
-			return -1;
-		} else {
-			return 1;
-		}
-	}
-
 	public int getParkingTotal() {
 		return parkingTotal;
 	}
@@ -255,6 +255,20 @@ public class POI implements Comparable<POI> {
 
 	public void setDrawableId(int drawableId) {
 		this.drawableId = drawableId;
+	}
+	
+	/**
+	 * function to make POIs compareable
+	 */
+	@Override
+	public int compareTo(POI another) {
+		// TODO Auto-generated method stub
+		double result = this.getEntfernung() - another.getEntfernung();
+		if (result < 0.0) {
+			return -1;
+		} else {
+			return 1;
+		}
 	}
 
 }

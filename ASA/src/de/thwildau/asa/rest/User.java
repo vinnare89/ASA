@@ -1,7 +1,12 @@
 package de.thwildau.asa.rest;
 
+/**
+ * 
+ * Class representing a User
+ *
+ */
 public class User {
-	
+	// user attributes
 	private Boolean result;
 	private String fullName;
 	private String gender;
@@ -9,13 +14,15 @@ public class User {
 	public User(OSLCEntry entry) {
 		this(entry, "resultSet#entry#");
 	}
-	
+	// constructor of a user
 	public User(OSLCEntry entry, String baseUrl) {
 		setResult(Boolean.parseBoolean((String) entry.getProperty(baseUrl + "result")));
 		setFullName((String) entry.getProperty(baseUrl + "fullName"));
 		setGender((String) entry.getProperty(baseUrl + "gender"));
 	}
-
+	
+	// getter and setter .,..
+	
 	public Boolean getResult() {
 		return result;
 	}

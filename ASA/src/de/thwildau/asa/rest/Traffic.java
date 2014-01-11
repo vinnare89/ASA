@@ -2,8 +2,13 @@ package de.thwildau.asa.rest;
 
 import java.util.List;
 
+/**
+ * 
+ * Class representing a Traffic Message
+ *
+ */
 public class Traffic {
-	
+	// attributes of a traffic message
 	private String streetsign;
 	private String event;
 	private String street;
@@ -13,7 +18,7 @@ public class Traffic {
 	public Traffic(OSLCEntry entry) {
 		this(entry, "trafficmessages#entry#");
 	}
-	
+	// constructor of a Traffic Message
 	public Traffic(OSLCEntry entry, String baseUrl) {	
 		System.out.println(entry.getProperty(baseUrl + "description"));
 		setDescription((String) entry.getProperty(baseUrl + "description"));
@@ -25,6 +30,8 @@ public class Traffic {
 		
 	}
 
+	// getter and setter ...
+	
 	public String getStreetsign() {
 		return streetsign;
 	}

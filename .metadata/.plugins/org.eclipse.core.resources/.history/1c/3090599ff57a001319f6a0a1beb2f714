@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 /**
- * Class representing a single Entry of the Gas Station List (PoiListActivity)
+ * Activity to show the list of gas stations (POIs)
  *
  */
 public class PoiListView extends ArrayAdapter<String> {
@@ -65,7 +65,6 @@ public class PoiListView extends ArrayAdapter<String> {
 				.findViewById(R.id.spielplatz);
 		ImageView duscheView = (ImageView) rowView.findViewById(R.id.dusche);
 		Button reserveButton = (Button) rowView.findViewById(R.id.reserve);
-		// if there are no more parking places left ..
 		if (parkingAvailable[position] == 0) {
 			reserveButton.setClickable(false);
 			reserveButton.setText("No Places Available");

@@ -18,7 +18,6 @@ import android.widget.TextView;
  */
 public class TrafficListView extends ArrayAdapter<String> {
 	private final Activity context;
-	// attributes of the list
 	private final String[] values;
 	private final String[] streetSigns;
 
@@ -48,10 +47,8 @@ public class TrafficListView extends ArrayAdapter<String> {
 		// rowView.findViewById(R.id.spielplatz);
 		// ImageView duscheView = (ImageView) rowView.findViewById(R.id.dusche);
 		// Button reserveButton = (Button) rowView.findViewById(R.id.reserve);
-		
-		// set text
+
 		txtTitle.setText(values[position]);
-		// get icon depending on message
 		try {
 			URL url = new URL(streetSigns[position]);
 			InputStream content = (InputStream) url.getContent();

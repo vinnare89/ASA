@@ -5,6 +5,11 @@ import java.util.List;
 
 import android.util.Log;
 
+/**
+*
+* Class which makes Traffic Messages out of a server request
+*
+*/
 public class TrafficManager {
 	private static String baseUrl = "http://jphil.de:8080/ASA/TRAFFIC";
 

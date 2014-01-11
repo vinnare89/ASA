@@ -12,11 +12,7 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-/**
- * Activity which handles the Main Menu
- * Currently just the LKW-Button contains functionality
- *
- */
+
 public class MenuActivity extends Activity implements OnTouchListener, OnClickListener {
 	// gui elements
 	TextView mainMenuHeaderTextView;
@@ -64,7 +60,6 @@ public class MenuActivity extends Activity implements OnTouchListener, OnClickLi
         	Util.vibrate(getSystemService(Context.VIBRATOR_SERVICE));
             return true;
         } else if (event.getAction() == MotionEvent.ACTION_UP){
-        	// determine pressed button
         	Intent intent = null;		
     		switch (v.getId()) {
     		case R.id.main_menu_logout_button:

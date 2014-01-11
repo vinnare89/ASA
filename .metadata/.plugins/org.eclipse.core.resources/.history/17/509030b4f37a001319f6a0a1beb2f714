@@ -25,7 +25,7 @@ import de.thwildau.asa.rest.UserManager;
  *
  */
 public class StartActivity extends Activity implements OnTouchListener {
-	// gui elements
+	// graphical elements
 	TextView loginHeaderTextView;
 	EditText loginUsernameEditText; // username input
 	EditText loginPasswordEditText; // password input

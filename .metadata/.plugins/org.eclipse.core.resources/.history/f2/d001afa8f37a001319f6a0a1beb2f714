@@ -25,7 +25,7 @@ import de.thwildau.asa.rest.UserManager;
  *
  */
 public class StartActivity extends Activity implements OnTouchListener {
-	// gui elements
+	// graphical elements
 	TextView loginHeaderTextView;
 	EditText loginUsernameEditText; // username input
 	EditText loginPasswordEditText; // password input
@@ -67,7 +67,6 @@ public class StartActivity extends Activity implements OnTouchListener {
         	Util.vibrate(getSystemService(Context.VIBRATOR_SERVICE));
             return true;
         } else if (event.getAction() == MotionEvent.ACTION_UP){
-        	// if user credentials are correct, go further and start Main Menu
         	if(login()){
         		Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
     			startActivity(intent);
