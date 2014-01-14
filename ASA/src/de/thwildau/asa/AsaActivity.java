@@ -74,10 +74,15 @@ public class AsaActivity extends Activity implements OnClickListener {
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	// Google Map
 	private GoogleMap googleMap;
+	// location Client
 	LocationClient mLocationClient;
+	// current Location
 	Location mCurrentLocation;
+	//Location request
 	LocationRequest mLocationRequest;
+	// Location Array List
 	ArrayList<Location> list = new ArrayList<Location>();
+	//String  for messages --- not used
 	private static String msg;
 
 	private static final int MILLISECONDS_PER_SECOND = 1000; // Milliseconds per
@@ -276,8 +281,8 @@ public class AsaActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		initilizeMap();
-		setupMyLocation();		
+		initilizeMap();		//initilize Google Map
+		setupMyLocation();	//get current Location
 	}
 
 	@Override
@@ -289,7 +294,7 @@ public class AsaActivity extends Activity implements OnClickListener {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		mLocationManager.removeUpdates(listener);
+		mLocationManager.removeUpdates(listener);		//close location Manager
 	}
 
 	void showDialog() {
@@ -337,6 +342,7 @@ public class AsaActivity extends Activity implements OnClickListener {
 			}
 		}
 	};
+	
 	/**
 	 * function the manage the traffic time tracking
 	 */
@@ -438,19 +444,24 @@ public class AsaActivity extends Activity implements OnClickListener {
 			doReverseGeocoding(location);
 	}
 
+	//location listener is used to get always the current location
 	private final LocationListener listener = new LocationListener() {
 		   
 		@Override
 		public void onLocationChanged(Location location) {
 			// A new location update is received.
-			updateUILocation(location);
-			double lat = location.getLatitude();
+			updateUILocation(location);		//update UI location
+			double lat = location.getLatitude();	
 			double lon = location.getLongitude();
 			LatLng coordinate = new LatLng(lat, lon);
+			//create new marker with the current position
     	   MyLocMO = new MarkerOptions().position(coordinate).title("You").snippet("your currrent position").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher));
-           MyLocation = googleMap.addMarker(MyLocMO);
+           //set marker to Google Map
+    	   MyLocation = googleMap.addMarker(MyLocMO);
+    	   //set view to current position 
            cameraPosition = new CameraPosition.Builder().target(coordinate).zoom(10).build();
  	        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+ 	        //if a route was set, update the route
            if(RoutetoTarget){
 	           if(StartCase){
 		           StartCase = false;
@@ -588,6 +599,11 @@ public class AsaActivity extends Activity implements OnClickListener {
 		}
 	};
 
+	/**
+	 * Method creates the Route from the current position to your target
+	 * @param fromPosition		your current position
+	 * @param TargetDesc		in most cases the selected gas station
+	 */
 	public void getRoutetoTarget(LatLng fromPosition, String TargetDesc) {
 		// latitude and longitude
 
@@ -659,16 +675,23 @@ public class AsaActivity extends Activity implements OnClickListener {
 						.newCameraPosition(cameraPosition));
 			}
 		}
+		//draw the generated route to the google map
 		googleMap.addPolyline(rectLine);
+		//Prove current location and the target, stop route if target is reached
 	   if((md.getDistanceValue(doc) <= 10) && (directionPoint.size() <= 2)){
 		   //Ziel erreicht
 		   RoutetoTarget = false;
 		   googleMap.clear();
 		   Toast.makeText(this, "ANGEKOMMEN!!!!!!!!!", Toast.LENGTH_LONG).show();
-		   
 	   }
 	}
 
+	/**
+	 * Method generates the bearing between two points 
+	 * @param nextPos		next position in your route
+	 * @param fromPos		current position
+	 * @return				bearing between points
+	 */
 	public double getBearing(LatLng nextPos, LatLng fromPos) {
 		double longDiff = nextPos.longitude - fromPos.longitude;
 		double y = Math.sin(longDiff) * Math.cos(nextPos.latitude);
@@ -680,6 +703,11 @@ public class AsaActivity extends Activity implements OnClickListener {
 		return degree;
 	}
 
+	/**
+	 * Method sets the Target to the Route
+	 * @param lat		latitude
+	 * @param lon		longitude
+	 */
 	public void RoutetoTarget(double lat, double lon) {
 		Log.e("latlong undansdasd", lat + " ######## " + lon);
 		TargetLat = lat;
@@ -687,6 +715,9 @@ public class AsaActivity extends Activity implements OnClickListener {
 		RoutetoTarget = true;
 	}
 	
+	/**
+	 * Method draws the all icons to the map
+	 */
 	   public void drawAllIconsOnMap(){
 		   //draw all icons on Map
 		   Iterator<POI> iterator = poiList.iterator();
@@ -711,6 +742,14 @@ public class AsaActivity extends Activity implements OnClickListener {
 		   }
 	   }
 	   
+	   /**
+	    * Method sets an icon to the map 
+	    * @param lat		latitude
+	    * @param lon		longitude
+	    * @param Desc		Description
+	    * @param Detail		detailed description
+	    * @param Icon		picture/icon
+	    */
 	   public void setIcontoMap(double lat, double lon, String Desc, String Detail, int Icon){
 		   LatLng Position = new LatLng(lat, lon);
 //		   Bitmap bitmap = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), Icon), 40, 40, true);

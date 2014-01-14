@@ -20,12 +20,24 @@ import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
+/**
+ * This Class gets all routing information from google
+ * Class is used from "http://stackoverflow.com/questions/14495030/google-map-api-v2-get-driving-directions"
+ */
 public class GMapV2Direction {
 public final static String MODE_DRIVING = "driving";
 public final static String MODE_WALKING = "walking";
 
+/**constructor*/
 public GMapV2Direction() { }
 
+/**
+ * Method gets a document from google with all routing informations
+ * @param start		start point
+ * @param end		end point
+ * @param mode		mode (driving,walking)
+ * @return			XML Document
+ */
 public Document getDocument(LatLng start, LatLng end, String mode) {
     String url = "http://maps.googleapis.com/maps/api/directions/xml?" 
             + "origin=" + start.latitude + "," + start.longitude  
@@ -49,6 +61,11 @@ public Document getDocument(LatLng start, LatLng end, String mode) {
     return null;
 }
 
+/**
+ * Method gets the duration text elements from the XML Document
+ * @param doc 		XML Dokument
+ * @return			duration text
+ */
 public String getDurationText (Document doc) {
     NodeList nl1 = doc.getElementsByTagName("duration");
     Node node1 = nl1.item(0);
@@ -58,6 +75,11 @@ public String getDurationText (Document doc) {
     return node2.getTextContent();
 }
 
+/**
+ * Method gets the duration value (int) elements from the XML Document
+ * @param doc		XML Document
+ * @return			duration value (int)
+ */
 public int getDurationValue (Document doc) {
     NodeList nl1 = doc.getElementsByTagName("duration");
     Node node1 = nl1.item(0);
@@ -67,6 +89,11 @@ public int getDurationValue (Document doc) {
     return Integer.parseInt(node2.getTextContent());
 }
 
+/**
+ * Method gets the distance text elements from the XML Document
+ * @param doc		XML Document
+ * @return			distance text
+ */
 public String getDistanceText (Document doc) {
     NodeList nl1 = doc.getElementsByTagName("distance");
     Node node1 = nl1.item(0);
@@ -76,6 +103,11 @@ public String getDistanceText (Document doc) {
     return node2.getTextContent();
 }
 
+/**
+ * Method gets the distance value elements from the XML Document
+ * @param doc		XML Document
+ * @return			distance value	
+ */
 public int getDistanceValue (Document doc) {
     NodeList nl1 = doc.getElementsByTagName("distance");
     Node node1 = nl1.item(0);
@@ -85,6 +117,11 @@ public int getDistanceValue (Document doc) {
     return Integer.parseInt(node2.getTextContent());
 }
 
+/**
+ * Method gets the start address elements from the XML Document
+ * @param doc		XML Document
+ * @return			start address	
+ */
 public String getStartAddress (Document doc) {
     NodeList nl1 = doc.getElementsByTagName("start_address");
     Node node1 = nl1.item(0);
@@ -92,6 +129,11 @@ public String getStartAddress (Document doc) {
     return node1.getTextContent();
 }
 
+/**
+ * Method gets the end address elements from the XML Document
+ * @param doc		XML Document
+ * @return			end address	
+ */
 public String getEndAddress (Document doc) {
     NodeList nl1 = doc.getElementsByTagName("end_address");
     Node node1 = nl1.item(0);
@@ -99,6 +141,11 @@ public String getEndAddress (Document doc) {
     return node1.getTextContent();
 }
 
+/**
+ * Method gets the copy rights elements from the XML Document
+ * @param doc		XML Document
+ * @return			copy rights	
+ */
 public String getCopyRights (Document doc) {
     NodeList nl1 = doc.getElementsByTagName("copyrights");
     Node node1 = nl1.item(0);
@@ -106,6 +153,11 @@ public String getCopyRights (Document doc) {
     return node1.getTextContent();
 }
 
+/**
+ * Method gets an array of all direction elements from the XML Document
+ * @param doc		XML Document
+ * @return			array of all direction elements
+ */
 public ArrayList<LatLng> getDirection (Document doc) {
     NodeList nl1, nl2, nl3;
     ArrayList<LatLng> listGeopoints = new ArrayList<LatLng>();
@@ -144,6 +196,11 @@ public ArrayList<LatLng> getDirection (Document doc) {
     return listGeopoints;
 }
 
+/**
+ * Method gets the note element index from the XML Document
+ * @param doc		XML Document
+ * @return			note element index
+ */
 private int getNodeIndex(NodeList nl, String nodename) {
     for(int i = 0 ; i < nl.getLength() ; i++) {
         if(nl.item(i).getNodeName().equals(nodename))
@@ -152,6 +209,11 @@ private int getNodeIndex(NodeList nl, String nodename) {
     return -1;
 }
 
+/**
+ * Method encodes the route to an array list of position elements
+ * @param encoded		encoded route
+ * @return				array list of position elements
+ */
 private ArrayList<LatLng> decodePoly(String encoded) {
     ArrayList<LatLng> poly = new ArrayList<LatLng>();
     int index = 0, len = encoded.length();
